@@ -6,7 +6,7 @@ class IdentifierScreen extends React.Component {
 
     render() {
         return (
-            <ImageBackground source={require('../../../assets/images/claus-grunstaudl-664432-unsplash.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../../../assets/images/samuel-ferrara-149242-unsplash.jpg')} style={styles.backgroundImage}>
                 <View style={styles.container}>
                     <Text style={{ fontSize: 23, color: '#fff' }}>
                         IDENTIFIER SCREEN
@@ -14,7 +14,12 @@ class IdentifierScreen extends React.Component {
                     <Button
                         title="Go to Camera"
                         onPress={() => this.props.navigation.navigate('Camera')}
-                        style={{color: 'white'}}
+                        style={styles.button}
+                    />
+                    <Button
+                        title="View Library"
+                        onPress={() => this.props.navigation.navigate('Library')}
+                        style={styles.button}                   
                     />
                 </View>
             </ImageBackground>
@@ -37,5 +42,8 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    button: {
+        color: 'white', 
     }
 })
