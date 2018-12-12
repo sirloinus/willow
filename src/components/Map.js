@@ -12,7 +12,7 @@ class Map extends React.Component {
                 key={location.id} 
                 title={location.name} 
                 coordinate={location.coords} 
-                image={require('../../assets/images/lockclosed.png')}
+                image={require('../../assets/icons/pin.png')}
             />
         ))
     }
@@ -29,7 +29,6 @@ class Map extends React.Component {
                     customMapStyle={mapStyle}
                 >
                     {this.renderMarkers()}
-                    <MapView.UrlTile urlTemplate="http://tile.stamen.com/watercolor/{z}/{x}/{y}.jpg" />
                 </MapView>
             )
         }
