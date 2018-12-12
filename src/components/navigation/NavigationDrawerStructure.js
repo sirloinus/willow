@@ -12,10 +12,9 @@ class NavigationDrawerStructure extends React.Component {
         return (
             <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity onPress={toggleDrawer}>
-
                     <Image
-                        source={require('../../../assets/images/home.png')}
-                        style={{ width: 80, height: 80, marginLeft: 5 }}
+                        source={require('../../../assets/icons/menu.png')}
+                        style={{ width: 50, height: 50, marginLeft: 10 }}
                     />
                 </TouchableOpacity>
             </View>
