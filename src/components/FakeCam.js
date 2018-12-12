@@ -6,7 +6,7 @@ class FakeCam extends React.Component {
     render() {
         return (
                <View style={styles.container}>
-                    <Text style={{ fontSize: 23, color: 'white' }}>
+                    <Text style={{ fontSize: 23, color: 'red' }}>
                         FAKE CAM
                     </Text>
                 </View>

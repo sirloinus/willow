@@ -1,8 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, ImageBackground } from 'react-native'
-import CameraLens from '../Camera';
-import FakeCam from '../FakeCam';
-import { Button } from 'native-base';
+import { View, Text, StyleSheet, ImageBackground, Button } from 'react-native'
 
 
 class IdentifierScreen extends React.Component {
@@ -16,10 +13,9 @@ class IdentifierScreen extends React.Component {
                     </Text>
                     <Button
                         title="Go to Camera"
-                        onPress={() => this.props.navigation.navigate('FakeCam')}
+                        onPress={() => this.props.navigation.navigate('Camera')}
                         style={{color: 'white'}}
                     />
-                    {/* <FakeCam/> */}
                 </View>
             </ImageBackground>
         )
