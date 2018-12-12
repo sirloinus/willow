@@ -85,7 +85,7 @@ export default class Compass extends Component {
               <View style={styles.container}>
                 <Text style={styles.text}>{display + '°'}</Text>
                 <View style={styles.imageContainer} >
-                    <Animated.Image resizeMode='contain' source={require('../../assets/images/sun.png')}
+                    <Animated.Image resizeMode='contain' source={require('../../assets/images/compass3.png')}
                         style={{
                             width: deviceWidth - 10, 
                             height: deviceHeight / 2 - 10,
@@ -95,7 +95,7 @@ export default class Compass extends Component {
                         }} />
                 </View>
                 <View style={styles.arrowContainer} >
-                    <Image resizeMode='contain' source={require('../../assets/images/arrow.png')} style={styles.arrow} />
+                    <Image resizeMode='contain' source={require('../../assets/images/secondHand.png')} style={styles.arrow} />
                 </View>
             </View>
         );
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     arrow: {
         width: deviceWidth / 5,
         height: deviceWidth / 5,
-        left: deviceWidth / 2 - (deviceWidth / 1.8),     // change 1.8 value to move arrow left/right
+        left: deviceWidth / 2 - (deviceWidth / 1.85),     // change 1.8 value to move arrow left/right
         top: deviceHeight / 2 - (deviceWidth / 5) / 2,
         opacity: 0.9
     },
