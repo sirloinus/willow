@@ -3,9 +3,10 @@ import { createStackNavigator } from 'react-navigation'
 
 import IdentifierScreen from '../screens/IdentifierScreen'
 import NavigationDrawerStructure from './NavigationDrawerStructure'
+import FakeCam from '../FakeCam';
 
 const IdentifierScreenStackNavigator = createStackNavigator({
-    Second: {
+    Third: {
         screen: IdentifierScreen,
         navigationOptions: ({ navigation }) => ({
             title: 'Identifier',
@@ -16,7 +17,13 @@ const IdentifierScreenStackNavigator = createStackNavigator({
             },
             headerTintColor: '#fff',
         })
+    },
+    FakeCam: {
+        screen: FakeCam
+    }},
+    {
+        initialRouteName: "Third"
     }
-})
+)
 
 export default IdentifierScreenStackNavigator
