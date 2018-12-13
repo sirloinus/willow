@@ -1,11 +1,8 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { createDrawerNavigator, createAppContainer } from 'react-navigation'
+import { createAppContainer } from 'react-navigation'
 
-import HomeScreenStackNavigator from './src/components/navigation/HomeScreenStackNavigator'
-import MapScreenStackNavigator from './src/components/navigation/MapScreenStackNavigator'
-import IdentifierScreenStackNavigator from './src/components/navigation/IdentifierScreenStackNavigator'
-import CompassScreenStackNavigator from './src/components/navigation/CompassScreenStackNavigator'
+import DrawerNavigator from './src/components/navigation/DrawerNavigator'
 
 class App extends React.Component {
   render() {
@@ -14,32 +11,6 @@ class App extends React.Component {
     )
   }
 }
-
-const DrawerNavigator = createDrawerNavigator (
-  {
-    Home: { screen: HomeScreenStackNavigator },
-    Map: { screen: MapScreenStackNavigator },
-    Identifier: { screen: IdentifierScreenStackNavigator },
-    Compass: { screen: CompassScreenStackNavigator }
-  }, {
-    drawerBackgroundColor: 'rgba(0, 0, 0, 0.1)',
-    drawerWidth: 250,
-    contentOptions: {
-      activeTintColor: '#ffffff',
-      inactiveTintColor: '#ffffff',
-      activeBackgroundColor: 'rgb(92, 162, 111)',
-      inactiveBackgroundColor: 'transparent',
-      itemsContainerStyle: {
-        marginTop: 38
-      },
-      itemStyle: {
-        marginTop: 0
-      },
-      labelStyle: {
-        fontSize: 14,
-      }
-  }
-})
 
 const AppContainer = createAppContainer(DrawerNavigator)
 
