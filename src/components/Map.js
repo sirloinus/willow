@@ -29,6 +29,7 @@ class Map extends React.Component {
                     customMapStyle={mapStyle}
                 >
                     {this.renderMarkers()}
+                    <MapView.UrlTile urlTemplate="http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg" />
                 </MapView>
             )
         }
