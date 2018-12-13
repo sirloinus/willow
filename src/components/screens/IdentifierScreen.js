@@ -1,8 +1,13 @@
 import React from 'react'
 import { View, Text, StyleSheet, ImageBackground, Button } from 'react-native'
+import store from 'react-native-simple-store'
 
 
 class IdentifierScreen extends React.Component {
+
+    state = {
+        pictures: []
+    }
 
     render() {
         return (
