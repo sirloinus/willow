@@ -48,39 +48,33 @@ class CameraLens extends React.Component {
         })
     }
 
-    takePicture = () => {
+    takePicture = async () => {
         if(this.camera){
-            this.camera.takePictureAsync()
-                .then((data) => {
-                    // let datetime = Date.now()
-                    let datetime = getPathSafeDatetime()
-                    let file_path = `${this.document_dir}${this.filename_prefix}${datetime}.jpg`
-                    FileSystem.moveAsync({
-                        from: data.uri,
-                        to: file_path
-                    })
-                    .then(response => {
-                        let photo_data = {
-                            key: uniqid(),
-                            name: datetime
-                        }
-                        store.push('pictures', photo_data)
-                        this.setState({
-                            picture: {
-                                ...photo_data,
-                                url: file_path,
-                                label: datetime,
-                            },
-                             photo_visible: true,
-                             camera_visible: false,
-                            
-                        })
-                        
-                        
-                    })
-                })
+            const data = await this.camera.takePictureAsync()
+            // let datetime = Date.now()
+            let datetime = getPathSafeDatetime()
+            let file_path = `${this.document_dir}${this.filename_prefix}${datetime}.jpg`
+            await FileSystem.moveAsync({
+                from: data.uri,
+                to: file_path
+            })
+            let photo_data = {
+                key: uniqid(),
+                name: datetime
+            }
+            store.push('pictures', photo_data)
+            this.setState({
+                picture: {
+                    ...photo_data,
+                    url: file_path,
+                    label: datetime,
+                },
+                    photo_visible: true,
+                    camera_visible: false,  
+            })
         }
     }
+    
 
     closePhoto = () => {
         this.setState({
