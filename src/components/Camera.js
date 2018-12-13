@@ -74,7 +74,6 @@ class CameraLens extends React.Component {
             })
         }
     }
-    
 
     closePhoto = () => {
         this.setState({
@@ -86,6 +85,7 @@ class CameraLens extends React.Component {
     render() {
         const { hasCameraPermission, picture, type, photo_visible, camera_visible, flashMode } = this.state
         const { flipCamera, takePicture, flash, renderPicture, closePhoto } = this
+
         if (hasCameraPermission === null){
             return <View/>
         } else if (hasCameraPermission === false){
@@ -127,7 +127,7 @@ class CameraLens extends React.Component {
                             <Image
                                 source={{uri: picture.url}}
                                 style={{flex: 1}}
-                                ImageResizeMode={'center'} />
+                                ImageResizeMode={'contain'} />
                             <View style={styles.lowerButtonsContainer}>
                                 <IconButton
                                     is_transparent={true}
@@ -138,7 +138,8 @@ class CameraLens extends React.Component {
                                     is_transparent={true}
                                     icon='search'
                                     style={styles.cameraButton}
-                                    onPress={() => Alert.alert('Identify')} />
+                                    onPress={() => this.props.navigation.navigate('Analysis')} />
+                                    {/* onPress={() => Alert.alert('Identify')} /> */}
                             </View>
                         </View>
                     }

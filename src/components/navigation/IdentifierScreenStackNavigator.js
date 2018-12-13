@@ -5,6 +5,7 @@ import IdentifierScreen from '../screens/IdentifierScreen'
 import NavigationDrawerStructure from './NavigationDrawerStructure'
 import CameraLens from '../Camera'
 import LibraryScreen from '../screens/LibraryScreen'
+import AnalysisScreen from '../screens/AnalysisScreen'
 
 const IdentifierScreenStackNavigator = createStackNavigator(
     {
@@ -23,7 +24,7 @@ const IdentifierScreenStackNavigator = createStackNavigator(
         Camera: {
             screen: CameraLens,
             navigationOptions: ({ navigation }) => ({
-                title: 'Camera',
+                title: '',
                 headerTransparent: true,
                 headerTintColor: '#fff',
             })
@@ -35,6 +36,14 @@ const IdentifierScreenStackNavigator = createStackNavigator(
                 headerTransparent: true,
                 headerTintColor: '#fff',
             })
+        },
+        Analysis: {
+            screen: AnalysisScreen,
+            navigationOptions: ({ navigation }) => ({
+                title: 'Analysing...',
+                headerTransparent: true,
+                headerTintColor: '#fff',
+            })            
         }
     },
     {
