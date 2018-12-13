@@ -19,7 +19,8 @@ class CameraLens extends React.Component {
         photo_visible: false,
         hasCameraPermission: null,
         type: Camera.Constants.Type.back,
-        picture: null
+        picture: null,
+        flashMode: Camera.Constants.FlashMode.off
     }
     
     async componentDidMount() {
@@ -36,6 +37,14 @@ class CameraLens extends React.Component {
             type: this.state.type === Camera.Constants.Type.back
                 ? Camera.Constants.Type.front
                 : Camera.Constants.Type.back,
+        })
+    }
+
+    flash = () => {
+        this.setState({
+            flashMode: this.state.flashMode === Camera.Constants.FlashMode.off
+                ? Camera.Constants.FlashMode.on
+                : Camera.Constants.FlashMode.off
         })
     }
 
@@ -56,45 +65,21 @@ class CameraLens extends React.Component {
                             name: datetime
                         }
                         store.push('pictures', photo_data)
-                        this.setState({ picture: photo_data })
-                        Alert.alert('Saved')
+                        this.setState({
+                            picture: {
+                                ...photo_data,
+                                url: file_path,
+                                label: datetime,
+                            },
+                             photo_visible: true,
+                             camera_visible: false,
+                            
+                        })
+                        
+                        
                     })
                 })
         }
-    }
-
-    flash = () => {
-
-    }
-
-    renderPicture = (picture) => {
-        // let name = friendlyDate(picture.name)
-        let name = picture.name
-        let photo_url = `${this.document_dir}${this.filename_prefix}${picture.name}.jpg`
-        return (
-            <TouchableHighlight key={picture.key} style={styles.list_item} underlayColor="#ccc" onPress={() => {
-                this.showPhoto(picture)
-            }}>
-                <View style={styles.image_container}>
-                    <Image
-                        source={{ uri: photo_url }}
-                        style={styles.image}
-                        ImageResizeMode={"contain"} />
-                </View>
-            </TouchableHighlight>
-        )
-    }
-
-    showPhoto = picture => {
-        this.setState({
-            photo_visible: true,
-            camera_visible: false,
-            picture: {
-                url: `${this.document_dir}${this.filename_prefix}${picture.name}.jpg`,
-                label: picture.name,
-                // label: friendlyDate(picture.name)
-            }
-        })
     }
 
     closePhoto = () => {
@@ -105,7 +90,7 @@ class CameraLens extends React.Component {
     }
 
     render() {
-        const { hasCameraPermission, picture, type, photo_visible } = this.state
+        const { hasCameraPermission, picture, type, photo_visible, camera_visible, flashMode } = this.state
         const { flipCamera, takePicture, flash, renderPicture, closePhoto } = this
         if (hasCameraPermission === null){
             return <View/>
@@ -114,7 +99,8 @@ class CameraLens extends React.Component {
         } else {
             return (
                 <View style={styles.container}>
-                    <Camera style={styles.wrapper} type={type} ref={ref => { this.camera = ref }} >
+                { !!camera_visible &&
+                    <Camera style={styles.wrapper} type={type} flashMode={flashMode} ref={ref => { this.camera = ref }} >
                         <View style={styles.cameraBody}>
                             <View style={styles.lowerButtonsContainer}>
                                 <IconButton is_transparent={true}
@@ -128,45 +114,41 @@ class CameraLens extends React.Component {
                                 <IconButton is_transparent={true}
                                     icon='flash-on'
                                     style={styles.cameraButton}
+                                    color={!flashMode ? 'white' : 'yellow'}
                                     onPress={flash}
                                     />
                             </View>
                         </View>     
                     </Camera>
+                }
                     <Modal
                         animationType="slide"
                         transparent={false}
                         visible={photo_visible}
                         onRequestClose={() => {
                             this.setState({ photo_visible: false, camera_visible: true})
-                        }}
-                    >
-                    {
-                        !!picture &&
-                            <View style={{flex: 1}}>
-                                <Image
-                                    source={{uri: picture.url}}
-                                    style={{flex: 1}}
-                                    ImageResizeMode={'contain'}
-                                />
+                        }} >
+                    { !!picture &&
+                        <View style={{flex: 1}}>
+                            <Image
+                                source={{uri: picture.url}}
+                                style={{flex: 1}}
+                                ImageResizeMode={'center'} />
+                            <View style={styles.lowerButtonsContainer}>
                                 <IconButton
                                     is_transparent={true}
                                     icon='close'
-                                    style={styles.closeButton}
-                                    onPress={closePhoto}
-                                />
-
+                                    style={styles.cameraButton}
+                                    onPress={closePhoto} />
+                                <IconButton
+                                    is_transparent={true}
+                                    icon='search'
+                                    style={styles.cameraButton}
+                                    onPress={() => Alert.alert('Identify')} />
                             </View>
+                        </View>
                     }
                     </Modal>
-                    {
-                        !picture && Alert.alert('Take a picture to identify!')
-                    }
-                    {
-                        !!picture && 
-                        renderPicture(picture)
-
-                    }
                 </View>
             )
         }
@@ -195,7 +177,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         position: 'absolute',
-        bottom: 0,
+        bottom: 5,
     },
     cameraButton: {
         padding: 10
@@ -205,16 +187,6 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         padding: 10,
-    },
-    list_item: {
-        flex: 1,
-        padding: 10
-    },
-    image_container: {
-        alignItems: 'center'
-    },
-    image: {
-        width: 130,
-        height: 130,
+        backgroundColor: 'transparent'
     },
 })

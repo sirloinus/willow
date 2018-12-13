@@ -7,7 +7,7 @@ const IconButton = props => {
 
     let icon_name = props.icon ? props.icon : 'add'
     let color = props.color ? props.color : '#eee'
-    let icon_size = props.size ? props.size : 35
+    let icon_size = props.size ? props.size : 45
 
     return (
         <TouchableHighlight style={styles.icon_button} onPress={props.onPress} >
