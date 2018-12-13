@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { TouchableHighlight, StyleSheet } from 'react-native'
+import { TouchableHighlight, TouchableOpactiy, StyleSheet } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 
 const IconButton = props => {
@@ -10,7 +10,7 @@ const IconButton = props => {
     let icon_size = props.size ? props.size : 35
 
     return (
-        <TouchableHighlight style={styles.icon_button} underlayColor="#ccc" onPress={() => {}}>
+        <TouchableHighlight style={styles.icon_button} onPress={props.onPress} >
             <MaterialIcons name={icon_name} size={icon_size} color={color} />
         </TouchableHighlight>
     )
