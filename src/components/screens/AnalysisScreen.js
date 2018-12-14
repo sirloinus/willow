@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, ImageBackground, Alert, Image, Button } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Alert, Image, Button, FlatList } from 'react-native'
 import { FileSystem } from 'expo'
 
 import apiKey from '../../lib/api'
@@ -13,7 +13,9 @@ class AnalysisScreen extends React.Component {
         currentPhoto: null,
         photoURI: null,
         photoBase64: null,
-        photoAnalysedData: null
+        photoAnalysedData: null,
+        filteredLabelAnnotations: null,
+        filteredWebDetection: null,
     }
 
     async componentDidMount() {
@@ -34,8 +36,9 @@ class AnalysisScreen extends React.Component {
 
         this.setState({ photoBase64 })
 
-        console.log(this.state)
-        console.log('current photo', currentPhoto)
+        console.log('current photo:', currentPhoto)
+
+        this.getImageDataFromVisionApi()
     }
 
     getImageDataFromVisionApi = async () => {
@@ -65,38 +68,70 @@ class AnalysisScreen extends React.Component {
             body: JSON.stringify(body)
         })           
         const parsed = await response.json()
+
         this.setState({
-            photoAnalysedData: parsed
+            photoAnalysedData: parsed.responses[0]
         }) 
-        console.log(this.state.photoAnalysedData)
+
+        this.filterImageData()
     }
 
+    filterImageData = () => {
+        const labelAnnotations = [...this.state.photoAnalysedData.labelAnnotations]
+        const webDetection = [...this.state.photoAnalysedData.webDetection.webEntities]
+        const filteredLabelAnnotations = labelAnnotations.filter(labelObj => labelObj.description != null)
+        const filteredWebDetection = webDetection.filter(webObj => webObj.description != null)
+
+
+
+        this.setState({
+            filteredLabelAnnotations,
+            filteredWebDetection
+        })
+        console.log('*********FILTERED DATA IN STATE:' ,this.state.filteredLabelAnnotations, "****", this.state.filteredWebDetection)
+    
+
+    }
+
+    analyseFilteredImageData = () => {
+
+    }
 
     render() {
         // const { navigation } = this.props
         // const pictureObj = navigation.getParam('picture', 'picture not found')
         // console.log(pictureObj)
        
-        const { photoURI, photos } = this.state
-        const { getImageDataFromVisionApi } = this
+        const { photoURI, photos, filteredLabelAnnotations, filteredWebDetection } = this.state
 
         return (
             <ImageBackground source={require('../../../assets/images/ehud-neuhaus-162166-unsplash.jpg')} style={styles.backgroundImage}>
                 <View style={styles.container}>
                     <Image
-                        source={{ photoURI }}
+                        source={{ uri: `${photoURI}` }}
                         style={styles.picture}
                         resizeMode='cover'
                     />
                     <Text style={{ fontSize: 23, color: 'white' }}>
-                        data from google vision api ....
-                        {photos.length}
-                        
+                        Length of photo array: {photos.length}
                     </Text>
-                    <Button
-                        title="Analyse photo"
-                        onPress={getImageDataFromVisionApi}
-                        style={styles.button}
+                    <FlatList
+                        data={filteredLabelAnnotations}
+                        renderItem={({item}) => 
+                            <Text style={styles.item}>
+                                {item.description} {(item.score * 100).toFixed(2) > 100 ? 100 : (item.score * 100).toFixed(2)} %
+                            </Text>
+                        }
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                    <FlatList
+                        data={filteredWebDetection}
+                        renderItem={({ item }) =>
+                            <Text style={styles.item}>
+                                {item.description} {(item.score * 100).toFixed(2) > 100 ? 100 : (item.score * 100).toFixed(2)} %
+                            </Text>
+                        }
+                        keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
             </ImageBackground>
@@ -126,5 +161,11 @@ const styles = StyleSheet.create({
         height: 150,
         borderWidth: 1,
         borderRadius: 75,
-    }
+    },
+    item: {
+        padding: 10,
+        fontSize: 18,
+        height: 44,
+        color: 'white'
+    },
 })
