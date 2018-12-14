@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, TouchableHighlight, StyleSheet, Alert, Mo
 import { Camera, Permissions, FileSystem } from 'expo'
 
 import IconButton from '../components/common/IconButton'
-import { getPathSafeDatetime, uniqid, friendlyDate } from '../lib/general'
+import { uniqid } from '../lib/general'
 
 class CameraLens extends React.Component {
 
@@ -52,6 +52,9 @@ class CameraLens extends React.Component {
                 from: data.uri,
                 to: file_path
             })
+            
+            console.log('taken photo', `Photo_${datetime}.jpg`)
+
             let photo_data = {
                 key: uniqid(),
                 name: datetime
@@ -77,7 +80,7 @@ class CameraLens extends React.Component {
 
     render() {
         const { hasCameraPermission, picture, type, photo_visible, camera_visible, flashMode } = this.state
-        const { flipCamera, takePicture, flash, renderPicture, closePhoto } = this
+        const { flipCamera, takePicture, flash, closePhoto } = this
 
         if (hasCameraPermission === null){
             return <View/>
