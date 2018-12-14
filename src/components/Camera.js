@@ -1,17 +1,11 @@
 import React from 'react'
-import { Text, View, TouchableOpacity, TouchableHighlight, StyleSheet, Alert, FlatList, Modal, Image } from 'react-native'
+import { Text, View, TouchableOpacity, TouchableHighlight, StyleSheet, Alert, Modal, Image } from 'react-native'
 import { Camera, Permissions, FileSystem } from 'expo'
 
 import IconButton from '../components/common/IconButton'
 import { getPathSafeDatetime, uniqid, friendlyDate } from '../lib/general'
 
 class CameraLens extends React.Component {
-
-    // constructor(props){
-    //     super(props)
-    //     this.document_dir = FileSystem.documentDirectory
-    //     this.filename_prefix = 'willow_'
-    // }
 
     componentWillMount() {
         FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'photos').catch(e => {
@@ -52,10 +46,8 @@ class CameraLens extends React.Component {
     takePicture = async () => {
         if(this.camera){
             const data = await this.camera.takePictureAsync()
-            // let datetime = Date.now()
-            let datetime = getPathSafeDatetime()
-            let file_path = `${FileSystem.documentDirectory}photos/${datetime}.jpg`
-            // let file_path = `${this.document_dir}${this.filename_prefix}${datetime}.jpg`
+            let datetime = Date.now()
+            let file_path = `${FileSystem.documentDirectory}photos/Photo_${datetime}.jpg`
             await FileSystem.moveAsync({
                 from: data.uri,
                 to: file_path
