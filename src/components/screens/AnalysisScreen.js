@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, ImageBackground, Alert, Image } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Alert, Image, Button } from 'react-native'
 import { FileSystem } from 'expo'
 
 import apiKey from '../../lib/api'
@@ -12,16 +12,18 @@ class AnalysisScreen extends React.Component {
         photos: [],
         currentPhoto: null,
         photoURI: null,
-        photoBase64: null
+        photoBase64: null,
+        photoAnalysedData: null
     }
 
     async componentDidMount() {
         const photos = await FileSystem.readDirectoryAsync(PHOTOS_DIR)
-        const currentPhoto = photos[0]
+        const sortedPhotos = photos.sort()
+        const currentPhoto = sortedPhotos[sortedPhotos.length-1]
         const photoURI = `${PHOTOS_DIR}/${currentPhoto}`
 
         this.setState({ 
-            photos,
+            sortedPhotos,
             currentPhoto,
             photoURI
         })
@@ -33,20 +35,40 @@ class AnalysisScreen extends React.Component {
         this.setState({ photoBase64 })
 
         console.log(this.state)
+        console.log('current photo', currentPhoto)
     }
 
     getImageDataFromVisionApi = async () => {
         const body = {
             requests: [{
                     image: { content: this.state.photoBase64 },
-                    features: [{
-                        type: 'LABEL_DETECTION',
-                        maxResults: 5
-                    }]
+                    features: [
+                        {
+                            type: 'LABEL_DETECTION',
+                            maxResults: 15
+                        }, {
+                            type: 'WEB_DETECTION',
+                            maxResults: 15
+                        }, {
+                            type: 'IMAGE_PROPERTIES',
+                        }
+                    ]
                 }]
         }
-        const key = apiKey.key
-        console.log(key)
+        const key = apiKey.key        
+        const response = await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${key}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+        })           
+        const parsed = await response.json()
+        this.setState({
+            photoAnalysedData: parsed
+        }) 
+        console.log(this.state.photoAnalysedData)
     }
 
 
@@ -56,6 +78,7 @@ class AnalysisScreen extends React.Component {
         // console.log(pictureObj)
        
         const { photoURI, photos } = this.state
+        const { getImageDataFromVisionApi } = this
 
         return (
             <ImageBackground source={require('../../../assets/images/ehud-neuhaus-162166-unsplash.jpg')} style={styles.backgroundImage}>
@@ -68,7 +91,13 @@ class AnalysisScreen extends React.Component {
                     <Text style={{ fontSize: 23, color: 'white' }}>
                         data from google vision api ....
                         {photos.length}
+                        
                     </Text>
+                    <Button
+                        title="Analyse photo"
+                        onPress={getImageDataFromVisionApi}
+                        style={styles.button}
+                    />
                 </View>
             </ImageBackground>
         )
