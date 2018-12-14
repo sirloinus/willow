@@ -1,17 +1,22 @@
 import React from 'react'
 import { Text, View, TouchableOpacity, TouchableHighlight, StyleSheet, Alert, FlatList, Modal, Image } from 'react-native'
 import { Camera, Permissions, FileSystem } from 'expo'
-import store from 'react-native-simple-store'
 
 import IconButton from '../components/common/IconButton'
 import { getPathSafeDatetime, uniqid, friendlyDate } from '../lib/general'
 
 class CameraLens extends React.Component {
 
-    constructor(props){
-        super(props)
-        this.document_dir = FileSystem.documentDirectory
-        this.filename_prefix = 'willow_'
+    // constructor(props){
+    //     super(props)
+    //     this.document_dir = FileSystem.documentDirectory
+    //     this.filename_prefix = 'willow_'
+    // }
+
+    componentWillMount() {
+        FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'photos').catch(e => {
+            console.log(e, 'Directory already exists')
+        })
     }
 
     state = {
@@ -26,10 +31,6 @@ class CameraLens extends React.Component {
     async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA)
         this.setState({hasCameraPermission: status === 'granted'})
-        // const response = await store.get('pictures')
-        // if (response) {
-        //     this.setState({ pictures: response })
-        // }
     }
 
     flipCamera = () => {
@@ -53,7 +54,8 @@ class CameraLens extends React.Component {
             const data = await this.camera.takePictureAsync()
             // let datetime = Date.now()
             let datetime = getPathSafeDatetime()
-            let file_path = `${this.document_dir}${this.filename_prefix}${datetime}.jpg`
+            let file_path = `${FileSystem.documentDirectory}photos/${datetime}.jpg`
+            // let file_path = `${this.document_dir}${this.filename_prefix}${datetime}.jpg`
             await FileSystem.moveAsync({
                 from: data.uri,
                 to: file_path
@@ -62,7 +64,6 @@ class CameraLens extends React.Component {
                 key: uniqid(),
                 name: datetime
             }
-            store.push('pictures', photo_data)
             this.setState({
                 picture: {
                     ...photo_data,
@@ -140,7 +141,9 @@ class CameraLens extends React.Component {
                                     style={styles.cameraButton}
                                     onPress={() => {
                                         this.setState({ photo_visible: false, camera_visible: true })
-                                        this.props.navigation.navigate('Analysis')
+                                        this.props.navigation.navigate('Analysis', {
+                                            picture: picture,
+                                        })
                                     }}/>
                             </View>
                         </View>
