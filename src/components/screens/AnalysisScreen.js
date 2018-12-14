@@ -118,13 +118,15 @@ class AnalysisScreen extends React.Component {
                     <FlatList
                         data={filteredLabelAnnotations}
                         renderItem={({item}) => 
+                        <View style={styles.itemWrapper}>
                             <Text style={styles.item}>
                                 {item.description} {(item.score * 100).toFixed(2) > 100 ? 100 : (item.score * 100).toFixed(2)} %
                             </Text>
+                        </View>
                         }
                         keyExtractor={(item, index) => index.toString()}
                     />
-                    <FlatList
+                    {/* <FlatList
                         data={filteredWebDetection}
                         renderItem={({ item }) =>
                             <Text style={styles.item}>
@@ -132,7 +134,7 @@ class AnalysisScreen extends React.Component {
                             </Text>
                         }
                         keyExtractor={(item, index) => index.toString()}
-                    />
+                    /> */}
                 </View>
             </ImageBackground>
         )
@@ -162,10 +164,21 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 75,
     },
+    itemWrapper: {
+        marginVertical: 14,
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: "#eeeeee",
+        borderRadius: 300,
+        padding: 5,
+        opacity: 0.5
+    },
     item: {
-        padding: 10,
         fontSize: 18,
         height: 44,
-        color: 'white'
+        color: 'black',
+        maxWidth: 250,
+        padding: 15,
+        borderRadius: 20,
     },
 })
