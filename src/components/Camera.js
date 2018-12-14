@@ -116,8 +116,8 @@ class CameraLens extends React.Component {
                     </Camera>
                 }
                     <Modal
-                        animationType="slide"
-                        transparent={false}
+                        animationType="fade"
+                        transparent={true}
                         visible={photo_visible}
                         onRequestClose={() => {
                             this.setState({ photo_visible: false, camera_visible: true})
@@ -138,8 +138,10 @@ class CameraLens extends React.Component {
                                     is_transparent={true}
                                     icon='search'
                                     style={styles.cameraButton}
-                                    onPress={() => this.props.navigation.navigate('Analysis')} />
-                                    {/* onPress={() => Alert.alert('Identify')} /> */}
+                                    onPress={() => {
+                                        this.setState({ photo_visible: false, camera_visible: true })
+                                        this.props.navigation.navigate('Analysis')
+                                    }}/>
                             </View>
                         </View>
                     }
