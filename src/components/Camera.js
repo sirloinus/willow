@@ -53,7 +53,7 @@ class CameraLens extends React.Component {
                 to: file_path
             })
             
-            console.log('taken photo', `Photo_${datetime}.jpg`)
+            console.log('taken photo:', `Photo_${datetime}.jpg`)
 
             let photo_data = {
                 key: uniqid(),
