@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, ImageBackground, Alert, Image, Button, FlatList } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Alert, Image, Button, FlatList, TouchableOpacity } from 'react-native'
 import { FileSystem } from 'expo'
 
 import apiKey from '../../lib/api'
@@ -9,6 +9,8 @@ const PHOTOS_DIR = FileSystem.documentDirectory + 'photos'
 class AnalysisScreen extends React.Component {
 
     state = {
+        loading: false,
+        error: null,
         photos: [],
         currentPhoto: null,
         photoURI: null,
@@ -16,6 +18,7 @@ class AnalysisScreen extends React.Component {
         photoAnalysedData: null,
         filteredLabelAnnotations: null,
         filteredWebDetection: null,
+        selectedItem: null,
     }
 
     async componentDidMount() {
@@ -27,7 +30,8 @@ class AnalysisScreen extends React.Component {
         this.setState({ 
             sortedPhotos,
             currentPhoto,
-            photoURI
+            photoURI,
+            loading: true
         })
 
         const photoBase64 = await FileSystem.readAsStringAsync(photoURI, {
@@ -59,19 +63,27 @@ class AnalysisScreen extends React.Component {
                 }]
         }
         const key = apiKey.key        
-        const response = await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${key}`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body)
-        })           
-        const parsed = await response.json()
-
-        this.setState({
-            photoAnalysedData: parsed.responses[0]
-        }) 
+        try {
+            const response = await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${key}`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body)
+            })           
+            const parsed = await response.json()
+            this.setState({
+                photoAnalysedData: parsed.responses[0],
+                error: response.error || null
+            }) 
+        } catch (error) {
+            alert(error)
+            this.setState({ 
+                error, 
+                loading: false
+            })
+        }
 
         this.filterImageData()
     }
@@ -82,19 +94,21 @@ class AnalysisScreen extends React.Component {
         const filteredLabelAnnotations = labelAnnotations.filter(labelObj => labelObj.description != null)
         const filteredWebDetection = webDetection.filter(webObj => webObj.description != null)
 
-
-
         this.setState({
             filteredLabelAnnotations,
-            filteredWebDetection
+            filteredWebDetection,
+            loading: false
         })
-        console.log('*********FILTERED DATA IN STATE:' ,this.state.filteredLabelAnnotations, "****", this.state.filteredWebDetection)
-    
-
+        console.log('*********FILTERED DATA IN STATE:' ,this.state.filteredLabelAnnotations, "****", this.state.filteredWebDetection)    
     }
 
     analyseFilteredImageData = () => {
 
+    }
+
+    selectItem = item => {
+        this.setState({ selectedItem: item })
+        console.log('selected:', this.state.selectedItem)
     }
 
     render() {
@@ -102,7 +116,8 @@ class AnalysisScreen extends React.Component {
         // const pictureObj = navigation.getParam('picture', 'picture not found')
         // console.log(pictureObj)
        
-        const { photoURI, photos, filteredLabelAnnotations, filteredWebDetection } = this.state
+        const { photoURI, photos, filteredLabelAnnotations, filteredWebDetection, selectedItem } = this.state
+        const { selectItem } = this
 
         return (
             <ImageBackground source={require('../../../assets/images/ehud-neuhaus-162166-unsplash.jpg')} style={styles.backgroundImage}>
@@ -113,16 +128,24 @@ class AnalysisScreen extends React.Component {
                         resizeMode='cover'
                     />
                     <Text style={{ fontSize: 23, color: 'white' }}>
-                        Length of photo array: {photos.length}
+                        Length of photo array: {photos.length} 
+                        Results...
                     </Text>
                     <FlatList
                         data={filteredLabelAnnotations}
                         renderItem={({item}) => 
-                        <View style={styles.itemWrapper}>
-                            <Text style={styles.item}>
-                                {item.description} {(item.score * 100).toFixed(2) > 100 ? 100 : (item.score * 100).toFixed(2)} %
-                            </Text>
-                        </View>
+                            <TouchableOpacity 
+                                onPress={() => selectItem(item)}
+                                style={selectedItem === item ? styles.selected : null}>
+                                <View style={styles.item}>
+                                    <Text style={styles.balloon}>
+                                        {item.description}
+                                    </Text>
+                                    <Text style={styles.score}>
+                                        {(item.score * 100).toFixed(2) > 100 ? 100 : (item.score * 100).toFixed(2)} %
+                                    </Text>
+                                </View>                            
+                        </TouchableOpacity>    
                         }
                         keyExtractor={(item, index) => index.toString()}
                     />
@@ -164,21 +187,29 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 75,
     },
-    itemWrapper: {
+    item: {
         marginVertical: 14,
         flex: 1,
         flexDirection: 'row',
         backgroundColor: "#eeeeee",
         borderRadius: 300,
         padding: 5,
-        opacity: 0.5
+        opacity: 0.5,
+        alignSelf: 'flex-start'
     },
-    item: {
-        fontSize: 18,
-        height: 44,
-        color: 'black',
+    balloon: {
         maxWidth: 250,
         padding: 15,
-        borderRadius: 20,
+        borderRadius: 20,  
     },
+    score: {
+        alignSelf: 'flex-end',
+        margin: 15,
+        fontSize: 12,
+        color: "rgb(85, 107, 100)",
+    },
+    selected: {
+        backgroundColor: 'yellow',
+
+    }
 })
