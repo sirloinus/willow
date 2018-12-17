@@ -4,6 +4,7 @@ import { View, Image, StyleSheet, FlatList } from 'react-native'
 import ImageDataBubble from './ImageDataBubble';
 
 const ImageDataCard = ({ photoURI, selectedItem, selectedItems }) => {
+    console.log(photoURI, selectedItems)
     return (
         <View style={styles.cardWrapper}>
             <Image

@@ -7,12 +7,6 @@ import { uniqid } from '../lib/general'
 
 class CameraLens extends React.Component {
 
-    componentWillMount() {
-        FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'photos').catch(e => {
-            console.log(e, 'Directory already exists')
-        })
-    }
-
     state = {
         camera_visible: true,
         photo_visible: false,
@@ -21,7 +15,13 @@ class CameraLens extends React.Component {
         picture: null,
         flashMode: Camera.Constants.FlashMode.off
     }
-    
+
+    componentWillMount() {
+        FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'photos').catch(e => {
+            console.log(e, 'Directory already exists')
+        })
+    }
+
     async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA)
         this.setState({hasCameraPermission: status === 'granted'})

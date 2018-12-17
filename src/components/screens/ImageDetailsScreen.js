@@ -1,11 +1,37 @@
 import React from 'react'
-import { View, StyleSheet, ImageBackground } from 'react-native'
+import { View, StyleSheet, ImageBackground, Alert } from 'react-native'
 import { MediaLibrary, Permissions } from 'expo'
 
 import IconButton from '../common/IconButton';
 import ImageDataCard from '../ImageDataCard';
 
 class ImageDetailsScreen extends React.Component {
+
+    handleOnPress = async (photoURI, selectedItems) => {
+        this.saveImageToCameraRoll(photoURI)
+        this.postImageAndDataToServer(photoURI, selectedItems)
+    }
+
+    postImageAndDataToServer = async (photoURI, selectedItems, userId = 1) => {
+        const stringifiedItems = JSON.stringify(selectedItems)
+        try { 
+            const response = await fetch('http://localhost:3000/api/v1/analysed_photos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    analysed_photo: {
+                        user_id: userId,
+                        photoUri: photoURI,
+                        labels: stringifiedItems
+                    }
+                })
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     saveImageToCameraRoll = async (photoURI) => {
         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
@@ -23,7 +49,7 @@ class ImageDetailsScreen extends React.Component {
     }
 
     render() {
-        const { saveImageToCameraRoll} = this
+        const { saveImageToCameraRoll, handleOnPress} = this
         const { navigation } = this.props
         const photoURI = navigation.getParam('photoURI', 'no pic found')
         const selectedItem = navigation.getParam('selectedItem', 'no selected item')
@@ -40,8 +66,7 @@ class ImageDetailsScreen extends React.Component {
                         icon='save'
                         style={styles.cameraButton}
                         onPress={() => {
-                            saveImageToCameraRoll(photoURI)
-                            // TODO: make post request to user db with picture info
+                            handleOnPress(photoURI, selectedItems)
                             this.props.navigation.navigate('Library')
                         }} />
                 </View> 

@@ -8,7 +8,7 @@ class ImageDataBubble extends React.Component {
 
         const selectItemHandler = selectItem ? () => selectItem(item) : null
         
-        console.log(selectedItem === item)
+        // console.log(selectedItem === item)
 
         return (
             <TouchableOpacity

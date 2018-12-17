@@ -81,7 +81,7 @@ class AnalysisScreen extends React.Component {
                 error: response.error || null
             }) 
         } catch (error) {
-            alert(error)
+            Alert.alert(error)
             this.setState({ 
                 error, 
                 loading: false
