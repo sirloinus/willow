@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, Text, StyleSheet, ImageBackground, Alert, Image, Button, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Alert, Image, FlatList } from 'react-native'
 import { FileSystem } from 'expo'
 
 import apiKey from '../../lib/api'
 import ImageDataBubble from '../ImageDataBubble';
+import IconButton from '../common/IconButton'
 
 const PHOTOS_DIR = FileSystem.documentDirectory + 'photos'
 
@@ -20,6 +21,7 @@ class AnalysisScreen extends React.Component {
         filteredLabelAnnotations: null,
         filteredWebDetection: null,
         selectedItem: null,
+        selectedItems: []
     }
 
     async componentDidMount() {
@@ -109,7 +111,9 @@ class AnalysisScreen extends React.Component {
 
     selectItem = item => {
         // this.setState({ selectedItem: item })
-        this.setState({ selectedItem: item }, () => {
+        const selectedItemsCopy = [...this.state.selectedItems]
+        selectedItemsCopy.push(item)
+        this.setState({ selectedItem: item, selectedItems: selectedItemsCopy}, () => {
             console.log('selected:', this.state.selectedItem)
         })
     }
@@ -119,7 +123,7 @@ class AnalysisScreen extends React.Component {
         // const pictureObj = navigation.getParam('picture', 'picture not found')
         // console.log(pictureObj)
        
-        const { photoURI, photos, filteredLabelAnnotations, filteredWebDetection, selectedItem } = this.state
+        const { photoURI, photos, filteredLabelAnnotations, filteredWebDetection, selectedItem, selectedItems } = this.state
         const { selectItem } = this
 
         return (
@@ -132,22 +136,33 @@ class AnalysisScreen extends React.Component {
                     />
                     <Text style={{ fontSize: 23, color: 'white' }}>
                         Length of photo array: {photos.length} 
-                        S
+                        Select the most accurate label and click on pen icon to view the image card.
                     </Text>
                     <FlatList
                         data={filteredLabelAnnotations}
                         renderItem={({item}) => 
-                            <ImageDataBubble item={item} selectItem={selectItem} selectedItem={selectedItem}/>  
+                            <ImageDataBubble item={item} selectItem={selectItem} selectedItem={selectedItem} />  
                         }
                         keyExtractor={(item, index) => index.toString()}
                     />
-                    <FlatList
+                    {/* <FlatList
                         data={filteredWebDetection}
                         renderItem={({ item }) =>
                             <ImageDataBubble item={item} selectItem={selectItem} selectedItem={selectedItem} />
                         }
                         keyExtractor={(item, index) => index.toString()}
-                    />
+                    /> */}
+                    <IconButton
+                        is_transparent={true}
+                        icon='create'
+                        style={styles.cameraButton}
+                        onPress={() => {
+                            this.props.navigation.navigate('Details', {
+                                photoURI: photoURI,
+                                selectedItem: selectedItem,
+                                selectedItems: selectedItems
+                            })
+                    }} />
                 </View>
             </ImageBackground>
         )
@@ -176,5 +191,8 @@ const styles = StyleSheet.create({
         height: 150,
         borderWidth: 1,
         borderRadius: 75,
+    },
+    cameraButton: {
+        padding: 10
     },
 })

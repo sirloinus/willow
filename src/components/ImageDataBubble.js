@@ -1,22 +1,32 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 
-const ImageDataBubble = ({ item, selectItem, selectedItem }) => {
-    return (
-        <TouchableOpacity
-            onPress={() => selectItem(item)}
-            style={selectedItem === item ? styles.selected : null}>
-            <View style={styles.item}>
-                <Text style={styles.balloon}>
-                    {item.description}
-                </Text>
-                <Text style={styles.score}>
-                    {(item.score * 100).toFixed(2) > 100 ? 100 : (item.score * 100).toFixed(2)} %
-                </Text>
-            </View>
-        </TouchableOpacity>  
-    )
+class ImageDataBubble extends React.Component {
+
+    render() {
+        const { item, selectItem, selectedItem = null } = this.props
+
+        const selectItemHandler = selectItem ? () => selectItem(item) : null
+        
+        console.log(selectedItem === item)
+
+        return (
+            <TouchableOpacity
+                onPress={selectItemHandler}
+                style={selectedItem === item ? styles.selected : null}>
+                <View style={styles.item}>
+                    <Text style={styles.balloon}>
+                        {item.description}
+                    </Text>
+                    <Text style={styles.score}>
+                        {(item.score * 100).toFixed(2) > 100 ? 100 : (item.score * 100).toFixed(2)} %
+                    </Text>
+                </View>
+            </TouchableOpacity>  
+        )
+    }
 }
+
 
 export default ImageDataBubble
 
@@ -44,6 +54,5 @@ const styles = StyleSheet.create({
     },
     selected: {
         backgroundColor: 'yellow',
-
     }
 })

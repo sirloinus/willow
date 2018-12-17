@@ -6,6 +6,7 @@ import NavigationDrawerStructure from './NavigationDrawerStructure'
 import CameraLens from '../Camera'
 import LibraryScreen from '../screens/LibraryScreen'
 import AnalysisScreen from '../screens/AnalysisScreen'
+import ImageDetailsScreen from '../screens/ImageDetailsScreen';
 
 const IdentifierScreenStackNavigator = createStackNavigator(
     {
@@ -44,6 +45,14 @@ const IdentifierScreenStackNavigator = createStackNavigator(
                 headerTransparent: true,
                 headerTintColor: '#fff',
             })            
+        },
+        Details: {
+            screen: ImageDetailsScreen,
+            navigationOptions: ({ navigation }) => ({
+                title: 'Details',
+                headerTransparent: true,
+                headerTintColor: '#fff',
+            })   
         }
     },
     {
