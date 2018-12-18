@@ -36,12 +36,22 @@ class ImageDetailsScreen extends React.Component {
     saveImageToCameraRoll = async (photoURI) => {
         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
         if (status === 'granted') {
-            try {
-                const asset = await MediaLibrary.createAssetAsync(photoURI)
-                MediaLibrary.createAlbumAsync('Willow', asset)
-                    .then(console.log('Album Created'))
-            } catch (error) {
-                console.log(error)
+            const album = await MediaLibrary.getAlbumAsync('Willow')
+            if(album === null) {
+                try {
+                    const asset = await MediaLibrary.createAssetAsync(photoURI)
+                    MediaLibrary.createAlbumAsync('Willow', asset)
+                        .then(console.log('Album Created'))
+                } catch (error) {
+                    console.log(error)
+                }
+            } else {
+                try {
+                    const asset = await MediaLibrary.createAssetAsync(photoURI)
+                    const assetAdded = await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
+                } catch (error) {
+                    console.log(error)
+                }
             }
         } else {
             Alert.alert('Please go to phone settings to enable saving')
