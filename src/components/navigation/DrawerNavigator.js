@@ -4,11 +4,12 @@ import HomeScreenStackNavigator from './HomeScreenStackNavigator';
 import MapScreenStackNavigator from './MapScreenStackNavigator';
 import IdentifierScreenStackNavigator from './IdentifierScreenStackNavigator';
 import CompassScreenStackNavigator from './CompassScreenStackNavigator';
+import MapTabNavigator from './MapTabNavigator';
 
 const DrawerNavigator = createDrawerNavigator (
     {
         Home: { screen: HomeScreenStackNavigator },
-        Map: { screen: MapScreenStackNavigator },
+        Map: { screen: MapTabNavigator },
         Identifier: { screen: IdentifierScreenStackNavigator },
         Compass: { screen: CompassScreenStackNavigator }
     }, {

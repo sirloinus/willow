@@ -35,7 +35,7 @@ class MapScreen extends React.Component {
         if (status !== 'granted') {
             this.setState({
                 errorMessage: 'Permission to access location was denied'
-            });
+            })
         }
 
         let location = await Location.getCurrentPositionAsync({})
@@ -43,8 +43,8 @@ class MapScreen extends React.Component {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
             ...deltas
-        };
-        await this.setState({ region });
+        }
+        await this.setState({ region })
     }
 
     render() {
