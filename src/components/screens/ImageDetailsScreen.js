@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, ImageBackground, Alert } from 'react-native'
 import { MediaLibrary, Permissions } from 'expo'
+import { StackActions, NavigationActions } from 'react-navigation'
 
 import IconButton from '../common/IconButton';
 import ImageDataCard from '../ImageDataCard';
@@ -59,7 +60,7 @@ class ImageDetailsScreen extends React.Component {
     }
 
     render() {
-        const { saveImageToCameraRoll, handleOnPress} = this
+        const { handleOnPress} = this
         const { navigation } = this.props
         const photoURI = navigation.getParam('photoURI', 'no pic found')
         const selectedItem = navigation.getParam('selectedItem', 'no selected item')
@@ -77,7 +78,9 @@ class ImageDetailsScreen extends React.Component {
                         style={styles.cameraButton}
                         onPress={() => {
                             handleOnPress(photoURI, selectedItems)
-                            this.props.navigation.navigate('Library')
+                            // this.props.navigation.navigate('Library')
+                            // this.props.navigation.dispatch(StackActions.reset({ index: 0, actions: [NavigationActions.navigate({ routeName: 'Library' })]}))
+                            this.props.navigation.dispatch(StackActions.reset({ index: 1, actions: [NavigationActions.navigate({ routeName: 'Third' }), NavigationActions.navigate({ routeName: 'Library' })] }))
                         }} />
                 </View> 
             </ImageBackground>

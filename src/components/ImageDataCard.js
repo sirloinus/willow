@@ -9,6 +9,7 @@ const ImageDataCard = ({ photoURI, selectedItem, selectedItems }) => {
         <View style={styles.cardWrapper}>
             <Image
                 source={{ uri: `${photoURI}` }}
+                defaultSource={require('../../assets/images/abhay-vyas-4071-unsplash.jpg')}
                 style={styles.picture}
                 resizeMode='cover'
             />
