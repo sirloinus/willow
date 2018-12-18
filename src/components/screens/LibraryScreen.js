@@ -54,7 +54,6 @@ class LibraryScreen extends React.Component {
                     )}
                 </ScrollView>
             </ImageBackground>
-
         )
     }
 }
