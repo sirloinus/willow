@@ -15,7 +15,7 @@ class ImageDetailsScreen extends React.Component {
     postImageAndDataToServer = async (photoURI, selectedItems, userId = 1) => {
         const stringifiedItems = JSON.stringify(selectedItems)
         try { 
-            const response = await fetch('http://localhost:3000/api/v1/analysed_photos', {
+            const response = await fetch('https://willow-rails-api.herokuapp.com/api/v1/analysed_photos', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
