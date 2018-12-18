@@ -15,7 +15,7 @@ class LibraryScreen extends React.Component {
 
     getAnalysedPhotosFromServer = async (userId = 1) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/users/${userId}`)
+            const response = await fetch(`https://willow-rails-api.herokuapp.com/api/v1/users/${userId}`)
             const user = await response.json()
             const analysedPhotos = user.analysed_photos
             this.setState({ analysedPhotos })
