@@ -5,7 +5,7 @@ class LocationsScreen extends React.Component {
 
     render() {
         return (
-            <ImageBackground source={require('../../../assets/images/caleb-woods-601935-unsplash.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../../../assets/images/holger-link-768311-unsplash.jpg')} style={styles.backgroundImage}>
                 <View style={styles.container}>
                     <Text style={{ fontSize: 23, color: 'white' }}>
                         LOCATIONS SCREEN

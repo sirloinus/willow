@@ -10,7 +10,8 @@ class Map extends React.Component {
         return this.props.locations.map((location) => (
             <Marker 
                 key={location.id} 
-                title={location.name} 
+                title={location.name}
+                description={location.description} 
                 coordinate={location.coords} 
                 image={require('../../assets/icons/pin.png')}
             />
@@ -18,18 +19,25 @@ class Map extends React.Component {
     }
 
     render() {
-        const { region } = this.props
+        const { region, handlePress } = this.props
             return (
                 <MapView
                     style={styles.container}
+                    // initialRegion={{
+                    //     latitude: 37.78825,
+                    //     longitude: -122.4324,
+                    //     latitudeDelta: 0.0922,
+                    //     longitudeDelta: 0.0421,}}
                     region={region}
                     showsUserLocation
                     showsMyLocationButton
                     provider={MapView.PROVIDER_GOOGLE}
                     customMapStyle={mapStyle}
+                    zoomEnabled={true}
+                    onPress={handlePress}
                 >
                     {this.renderMarkers()}
-                    <MapView.UrlTile urlTemplate="http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg" />
+                    {/* <MapView.UrlTile urlTemplate="http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg" /> */}
                 </MapView>
             )
         }
@@ -43,7 +51,6 @@ class Map extends React.Component {
     }
 
 export default Map
-
 
 const mapStyle = [
     {
@@ -114,7 +121,7 @@ const mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#b0b1b2"
+                "color": "#3b5055"
             },
             {
                 "saturation": "1"
@@ -126,7 +133,7 @@ const mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#929e97"
+                "color": "#567967"
             }
         ]
     },
@@ -153,7 +160,7 @@ const mapStyle = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#c0a0a0"
+                "color": "#3d3232"
             },
             {
                 "visibility": "off"
@@ -165,7 +172,7 @@ const mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#b9f7ce"
+                "color": "#9fcda9"
             },
             {
                 "visibility": "on"
@@ -177,7 +184,10 @@ const mapStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#743535"
+                "color": "#832727"
+            },
+            {
+                "visibility": "off"
             }
         ]
     },
@@ -189,7 +199,7 @@ const mapStyle = [
                 "visibility": "simplified"
             },
             {
-                "color": "#237963"
+                "color": "#388d77"
             },
             {
                 "gamma": "1.28"
@@ -210,10 +220,16 @@ const mapStyle = [
         "elementType": "labels.text.fill",
         "stylers": [
             {
-                "color": "#629f7e"
+                "color": "#5c9d8e"
             },
             {
                 "visibility": "on"
+            },
+            {
+                "weight": "2.52"
+            },
+            {
+                "gamma": "0.85"
             }
         ]
     },
@@ -270,7 +286,19 @@ const mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#ffffff"
+                "color": "#75a39a"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#75a39a"
             }
         ]
     },
@@ -297,7 +325,7 @@ const mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#8d8e8f"
+                "color": "#829bb3"
             }
         ]
     },
@@ -369,7 +397,7 @@ const mapStyle = [
         "elementType": "all",
         "stylers": [
             {
-                "color": "#6ccfd9"
+                "color": "#68aeb5"
             },
             {
                 "visibility": "on"
