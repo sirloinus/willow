@@ -22,10 +22,10 @@ const MapTabNavigator = createBottomTabNavigator(
             },
             
             style: {
-                backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                borderTopWidth: 5,
-                borderTopColor: 'rgb(92, 162, 111)',
-                position: 'absolute',
+                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                // borderTopWidth: 3,
+                // borderTopColor: 'rgb(92, 162, 111)',
+                // position: 'absolute',  
                 left: 0,
                 right: 0,
                 bottom: 0

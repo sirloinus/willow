@@ -8,13 +8,13 @@ const MapScreenStackNavigator = createStackNavigator({
     Second: {
         screen: MapScreen,
         navigationOptions: ({ navigation }) => ({
-            title: 'Map',
+            // title: 'Map',
             headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
             headerTransparent: true,
             headerStyle: {
                 // backgroundColor: 'white',
             },
-            headerTintColor: '##fff',
+            headerTintColor: '#fff',
         })
     }
 })
