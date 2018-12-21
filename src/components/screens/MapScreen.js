@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, TextInput, Modal } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { Permissions, Location } from 'expo'
 
 import Map from '../Map'
@@ -25,12 +25,6 @@ class MapScreen extends React.Component {
             // latitudeDelta: null,
             // longitudeDelta: null,
         },
-        // locations: [
-        //     { id: 1, name: "King Henry's Mound", description: 'nice lil place', coords: { latitude: 51.444937, longitude: -0.294785 } },
-        //     { id: 2, name: "Rhino", coords: { latitude: 51.438596, longitude: -0.287324 } },
-        //     { id: 3, name: "Birch Tree Forest", coords: { latitude: 51.438359, longitude: -0.279827 } },
-        //     { id: 4, name: "Dancing in the Woods: White Lodge", coords: { latitude: 51.445139, longitude: -0.264864 } },
-        // ],
         locations: [],
         coordinates: null,
         locationTitle: null,
@@ -90,7 +84,6 @@ class MapScreen extends React.Component {
     saveLocationDetails = async () => {
 
         // TODO: change user_id below to the id of signed-in user
-        // TODO: push marker into state.locations so it is rendered on page
 
         const locationsCopy = [...this.state.locations]
         const newMarker = {
