@@ -14,6 +14,9 @@ class ImageDetailsScreen extends React.Component {
     }
 
     postImageAndDataToServer = async (photoURI, selectedItems, userId = 1) => {
+
+        // TODO: change user_id below to the id of signed-in user
+
         const stringifiedItems = JSON.stringify(selectedItems)
         try { 
             const response = await fetch('https://willow-rails-api.herokuapp.com/api/v1/analysed_photos', {

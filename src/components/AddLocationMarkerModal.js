@@ -5,14 +5,14 @@ import IconButton from './common/IconButton';
 class AddLocationMarkerModal extends React.Component {
 
     render() {
-        const { modalVisible, handleModalVisible } = this.props
+        const { modalVisible, handleChange, locationTitle, locationDescription, handleModal, saveLocationDetails } = this.props
         return (
             <Modal visible={modalVisible}
                 // style={styles.modal}
                 transparent={true}
                 position='center'
                 backdrop={true}
-                animationType='slide' >
+                animationType='fade' >
                 <View style={styles.modal}>
                     <TextInput
                         style={styles.input}
@@ -21,7 +21,8 @@ class AddLocationMarkerModal extends React.Component {
                         autoCorrect={true}
                         keyboardType="default"
                         returnKeyType="next"
-                        onChangeText={(text) => this.setState({ locationTitle: text })}
+                        value={locationTitle}
+                        onChange={(event) => handleChange(event, 'locationTitle')}
                     />
                     <TextInput
                         style={styles.input}
@@ -29,18 +30,19 @@ class AddLocationMarkerModal extends React.Component {
                         autoCorrect={true}
                         keyboardType="default"
                         returnKeyType="done"
-                        onChangeText={(text) => this.setState({ locationDescription: text })}
+                        value={locationDescription}
+                        onChange={(event) => handleChange(event, 'locationDescription')}
                     />
                     <IconButton
                         is_transparent={true}
                         icon='save'
                         style={styles.saveButton}
-                        onPress={() => console.log('yoyoyoyo')} />
+                        onPress={saveLocationDetails} />
                     <IconButton
                         is_transparent={true}
                         icon='close'
                         style={styles.saveButton}
-                        onPress={handleModalVisible} />
+                        onPress={handleModal} />
                     {/* <Button
                         style={{fontSize: 18, color: 'white'}}
                         containerStyle={styles.buttonContainer}

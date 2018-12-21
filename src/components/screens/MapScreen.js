@@ -25,18 +25,21 @@ class MapScreen extends React.Component {
             // latitudeDelta: null,
             // longitudeDelta: null,
         },
-        locations: [
-            { id: 1, name: "King Henry's Mound", description: 'nice lil place', coords: { latitude: 51.444937, longitude: -0.294785 } },
-            { id: 2, name: "Rhino", coords: { latitude: 51.438596, longitude: -0.287324 } },
-            { id: 3, name: "Birch Tree Forest", coords: { latitude: 51.438359, longitude: -0.279827 } },
-            { id: 4, name: "Dancing in the Woods: White Lodge", coords: { latitude: 51.445139, longitude: -0.264864 } },
-        ],
-        locationTitle: '',
-        locationDescription: '',
+        // locations: [
+        //     { id: 1, name: "King Henry's Mound", description: 'nice lil place', coords: { latitude: 51.444937, longitude: -0.294785 } },
+        //     { id: 2, name: "Rhino", coords: { latitude: 51.438596, longitude: -0.287324 } },
+        //     { id: 3, name: "Birch Tree Forest", coords: { latitude: 51.438359, longitude: -0.279827 } },
+        //     { id: 4, name: "Dancing in the Woods: White Lodge", coords: { latitude: 51.445139, longitude: -0.264864 } },
+        // ],
+        locations: [],
+        coordinates: null,
+        locationTitle: null,
+        locationDescription: null,
     }
 
     componentDidMount() {
         this.getLocationAsync()
+        this.getUserMarkers()
     }
 
     getLocationAsync = async () => {
@@ -57,36 +60,89 @@ class MapScreen extends React.Component {
         this.setState({ region })
     }
 
+    getUserMarkers = async () => {
+        const id = 1    // TODO: change user_id below to the id of signed-in user
+        try {
+            const response = await fetch(`https://willow-rails-api.herokuapp.com/api/v1/users/${id}`)
+            const user = await response.json()
+            const locations = user.markers
+            this.setState({ locations })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     handlePress = event => {
-        this.setState({modalVisible: true })
-        // TODO: add pop up input form to get name and description of location and also add this to state
-        // TODO: then ----> add marker to database and then set state below
         this.setState({
-            locations: [
-                ...this.state.locations,
-                {
-                    coords: event.nativeEvent.coordinate
-                }
-            ]
-        }, () => {
-            console.log(this.state.locations)
-            console.log(this.state.locationTitle)
+            modalVisible: true,
+            coordinates: event.nativeEvent.coordinate
         })
     }
 
-    handleModalVisible = () => {
-        this.setState({modalVisible: false })
+    handleModal = () => {
+        this.setState({ modalVisible: !this.state.modalVisible })
+    }
+
+    handleChange = (event, name) => {
+        this.setState({ [name]: event.nativeEvent.text })
+    }
+
+    saveLocationDetails = async () => {
+
+        // TODO: change user_id below to the id of signed-in user
+        // TODO: push marker into state.locations so it is rendered on page
+
+        const locationsCopy = [...this.state.locations]
+        const newMarker = {
+            user_id: 1,
+            latitude: this.state.coordinates.latitude,
+            longitude: this.state.coordinates.longitude,
+            title: this.state.locationTitle,
+            description: this.state.locationDescription
+        }
+
+        locationsCopy.push(newMarker)
+        this.setState({ locations: locationsCopy})
+
+        try {
+            const response = await fetch('https://willow-rails-api.herokuapp.com/api/v1/markers', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    marker: newMarker
+                })
+            })
+            this.setState({
+                modalVisible: false,
+                coordinates: null,
+                locationTitle: null,
+                locationDescription: null, 
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
-        const { region, locations, modalVisible } = this.state
-        const { handlePress, handleModalVisible } = this
+        const { region, locations, modalVisible, locationTitle, locationDescription } = this.state
+        const { handleChange, handleModal, handlePress, saveLocationDetails } = this
         return (
             <View style={styles.container}>
                 {this.state.region.latitude && 
-                <Map region={region} locations={locations} handlePress={handlePress}/>
+                    <Map 
+                        region={region} 
+                        locations={locations} 
+                        handlePress={handlePress} />
                 }
-                <AddLocationMarkerModal handleModalVisible={handleModalVisible} modalVisible={modalVisible}/>
+                <AddLocationMarkerModal 
+                    modalVisible={modalVisible}
+                    handleChange={handleChange}
+                    locationTitle={locationTitle}
+                    locationDescription={locationDescription}
+                    saveLocationDetails={saveLocationDetails}
+                    handleModal={handleModal} />
            </View>
         )
     }
