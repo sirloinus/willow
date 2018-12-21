@@ -7,12 +7,13 @@ const Marker = MapView.Marker
 class Map extends React.Component {
 
     renderMarkers() {
-        return this.props.locations.map((location) => (
+        return this.props.locations.map(location => (
             <Marker 
-                key={location.id} 
-                title={location.name}
+                key={location.id}
+                // title={location.name}
+                title={location.title}
                 description={location.description} 
-                coordinate={location.coords} 
+                coordinate={{latitude: location.latitude, longitude: location.longitude}} 
                 image={require('../../assets/icons/pin.png')}
             />
         ))
