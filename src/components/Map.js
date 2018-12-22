@@ -10,11 +10,11 @@ class Map extends React.Component {
         return this.props.locations.map(location => (
             <Marker 
                 key={location.id}
-                // title={location.name}
                 title={location.title}
                 description={location.description} 
                 coordinate={{latitude: location.latitude, longitude: location.longitude}} 
                 image={require('../../assets/icons/pin.png')}
+                onPress={(event) => { event.stopPropagation()}}
             />
         ))
     }
