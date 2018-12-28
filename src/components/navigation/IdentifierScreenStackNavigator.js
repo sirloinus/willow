@@ -24,7 +24,7 @@ const IdentifierScreenStackNavigator = createStackNavigator(
         Library: {
             screen: LibraryScreen,
             navigationOptions: ({ navigation }) => ({
-                title: 'Library',
+                title: '',
                 headerTransparent: true,
                 headerTintColor: '#fff',
             })
@@ -32,7 +32,7 @@ const IdentifierScreenStackNavigator = createStackNavigator(
         Analysis: {
             screen: AnalysisScreen,
             navigationOptions: ({ navigation }) => ({
-                title: 'Analysing...',
+                title: '',
                 headerTransparent: true,
                 headerTintColor: '#fff',
             })            
@@ -40,7 +40,7 @@ const IdentifierScreenStackNavigator = createStackNavigator(
         Details: {
             screen: ImageDetailsScreen,
             navigationOptions: ({ navigation }) => ({
-                title: 'Details',
+                title: '',
                 headerTransparent: true,
                 headerTintColor: '#fff',
             })   

@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet, ImageBackground, ScrollView } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, ImageBackground, ScrollView, Image } from 'react-native'
+
 import ImageDataCard from '../ImageDataCard';
 
 class LibraryScreen extends React.Component {
@@ -47,11 +47,28 @@ class LibraryScreen extends React.Component {
             //     </View>
             // </ImageBackground>
 
+            // <ImageBackground source={require('../../../assets/images/claus-grunstaudl-664432-unsplash.jpg')} style={styles.backgroundImage}>
+            //     <ScrollView contentContainerStyle={styles.content}>
+            //         {analysedPhotos.map(item => 
+            //             <ImageDataCard photoURI={item.photoUri} selectedItems={JSON.parse(item.labels)} />
+            //         )}
+            //     </ScrollView>
+            // </ImageBackground>
+
             <ImageBackground source={require('../../../assets/images/claus-grunstaudl-664432-unsplash.jpg')} style={styles.backgroundImage}>
-                <ScrollView contentContainerStyle={styles.content}>
+                <ScrollView contentContainerStyle={styles.scrollContainer}>
+                    <View style={styles.gridContainer}>
                     {analysedPhotos.map(item =>
-                        <ImageDataCard photoURI={item.photoUri} selectedItems={JSON.parse(item.labels)} />
+                        <View style={styles.boxContainer}>
+                            <Image 
+                                source={{ uri: `${item.photoUri}` }}
+                                defaultSource={require('../../../assets/images/abhay-vyas-4071-unsplash.jpg')}
+                                style={styles.picture}
+                                resizeMode='cover'
+                            />
+                        </View>
                     )}
+                    </View>
                 </ScrollView>
             </ImageBackground>
         )
@@ -61,12 +78,12 @@ class LibraryScreen extends React.Component {
 export default LibraryScreen
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'transparent',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+    // container: {
+    //     flex: 1,
+    //     backgroundColor: 'transparent',
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    // },
     backgroundImage: {
         flex: 1,
         width: '100%',
@@ -76,7 +93,32 @@ const styles = StyleSheet.create({
     },
     content: {
         // paddingVertical: 80
+        marginTop: 80,
         padding: 10,
         flexGrow: 1
+    },
+    scrollContainer: {
+        flex: 1,
+        marginTop: 90
+    },
+    gridContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    boxContainer: {
+        width: 120,
+        height: 120,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+        padding: 5,
+    },
+    picture: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 10
     }
 })

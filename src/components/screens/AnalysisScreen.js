@@ -134,8 +134,7 @@ class AnalysisScreen extends React.Component {
                         style={styles.picture}
                         resizeMode='cover'
                     />
-                    <Text style={{ fontSize: 23, color: 'white' }}>
-                        Length of photo array: {photos.length} 
+                    <Text style={styles.info}>
                         Select the most accurate label and click on pen icon to view the image card.
                     </Text>
                     <FlatList
@@ -173,7 +172,9 @@ export default AnalysisScreen
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: 80,
         flex: 1,
+        width: '100%',
         backgroundColor: 'transparent',
         alignItems: 'center',
         justifyContent: 'center',
@@ -184,6 +185,14 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    info: { 
+        fontSize: 20, 
+        color: 'white', 
+        alignContent: 'center',
+        width: '90%',
+        marginLeft: '5%',
+        marginRight: '5%' 
     },
     picture: {
         alignSelf: 'center',
