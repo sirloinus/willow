@@ -1,8 +1,8 @@
 import React from 'react'
 import { createBottomTabNavigator } from 'react-navigation'
 
-import LocationsScreen from '../screens/LocationsScreen';
-import MapScreenStackNavigator from './MapScreenStackNavigator';
+import LocationsScreen from '../screens/LocationsScreen'
+import MapScreenStackNavigator from './MapScreenStackNavigator'
 
 const MapTabNavigator = createBottomTabNavigator(
     {
