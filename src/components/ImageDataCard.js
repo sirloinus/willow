@@ -29,7 +29,7 @@ export default ImageDataCard
 const styles = StyleSheet.create({
     cardWrapper: {
         width: 300,
-        backgroundColor: 'rgba(0, 107, 91, 0.8)',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
         borderRadius: 80,
         alignItems: 'center',
         justifyContent: 'center',

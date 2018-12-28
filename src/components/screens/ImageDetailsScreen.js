@@ -83,7 +83,7 @@ class ImageDetailsScreen extends React.Component {
                             handleOnPress(photoURI, selectedItems)
                             // this.props.navigation.navigate('Library')
                             // this.props.navigation.dispatch(StackActions.reset({ index: 0, actions: [NavigationActions.navigate({ routeName: 'Library' })]}))
-                            this.props.navigation.dispatch(StackActions.reset({ index: 1, actions: [NavigationActions.navigate({ routeName: 'Third' }), NavigationActions.navigate({ routeName: 'Library' })] }))
+                            this.props.navigation.dispatch(StackActions.reset({ index: 1, actions: [NavigationActions.navigate({ routeName: 'Camera' }), NavigationActions.navigate({ routeName: 'Library' })] }))
                         }} />
                 </View> 
             </ImageBackground>
