@@ -24,9 +24,14 @@ class LocationsScreen extends React.Component {
         }
     }
 
+    deleteLocationFromList = item => {
+        const updatedLocationsArray = this.state.locations.filter(location => location !== item)
+        this.setState({ locations: updatedLocationsArray })
+    }
+
     render() {
         const { locations } = this.state
-        const { renderItem } = this
+        const { deleteLocationFromList } = this
         return (
             <ImageBackground source={require('../../../assets/images/holger-link-768311-unsplash.jpg')} style={styles.backgroundImage}>
                 <View style={styles.container}>
@@ -34,7 +39,7 @@ class LocationsScreen extends React.Component {
                         style={styles.flatList}
                         data={locations}
                         renderItem={({item}) => 
-                            <LocationsListItem item={item}/>
+                            <LocationsListItem item={item} deleteLocationFromList={deleteLocationFromList}/>
                         }
                         keyExtractor={(item, index) => index.toString()}
                     />

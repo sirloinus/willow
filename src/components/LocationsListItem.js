@@ -4,20 +4,36 @@ import Swipeout from 'react-native-swipeout'
 
 class LocationsListItem extends React.Component {
 
-    state = {
-        buttons: [
-            {text: 'Delete'}
-        ]
+    deleteLocation = async item => {
+        try {
+            const response = await fetch(`https://willow-rails-api.herokuapp.com/api/v1/markers/${item.id}`, {
+                method: 'DELETE'
+            })
+            const parsed = await response.json()
+        } catch(error) {
+            console.log(error)
+        }
     }
 
     render() {
-        const { item } = this.props
-        const { buttons } = this.state
+        const { item, deleteLocationFromList } = this.props
+        const { deleteLocation } = this
+        const buttons = [
+            {
+                text: 'Delete',
+                backgroundColor: 'rgb(0, 196, 124)',
+                onPress: () => { 
+                    deleteLocation(item)
+                    deleteLocationFromList(item)
+                }
+            },
+        ]
         return (
             <TouchableOpacity>
                 <View style={styles.container}>
                     <Swipeout
                         right={buttons}
+                        autoClose={true}
                         backgroundColor='transparent'
                         style={{borderRadius: 10}}
                     >
@@ -68,7 +84,7 @@ const styles = StyleSheet.create({
     textContainer: {
         flex: 1,
         flexDirection: 'column',
-        height: 100
+        height: 100,
     },
     title: {
         // color: '#5c9d8e',
