@@ -21,7 +21,7 @@ class LocationsListItem extends React.Component {
         const buttons = [
             {
                 text: 'Delete',
-                backgroundColor: 'rgb(0, 196, 124)',
+                backgroundColor: '#5c9d8e',
                 onPress: () => { 
                     deleteLocation(item)
                     deleteLocationFromList(item)
