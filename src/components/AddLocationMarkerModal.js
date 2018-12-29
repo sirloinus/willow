@@ -13,6 +13,7 @@ class AddLocationMarkerModal extends React.Component {
                 position='center'
                 backdrop={true}
                 animationType='fade' >
+                <View style={styles.modalWrapper}>
                 <View style={styles.modal}>
                     <TextInput
                         style={styles.input}
@@ -51,6 +52,7 @@ class AddLocationMarkerModal extends React.Component {
                         Save
                     </Button> */}
                 </View>
+                </View>
             </Modal>
     )}
 }
@@ -58,13 +60,21 @@ class AddLocationMarkerModal extends React.Component {
 export default AddLocationMarkerModal
 
 const styles = StyleSheet.create({
+    modalWrapper: {
+        height: '50%',
+        marginTop: '25%',
+        marginBottom: '25%',
+        width: '80%',
+        marginLeft: '10%',
+        marginRight: '10%'
+    },
     modal: {
         justifyContent: 'center',
         borderRadius: 30,
         shadowRadius: 10,
         width: 250,
         height: 250,
-        margin: 100,
+        // margin: 100,
         backgroundColor: 'white'
         // position: 'absolute',
         // bottom: 0,

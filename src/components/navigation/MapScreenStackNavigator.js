@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation'
 
 import MapScreen from '../screens/MapScreen'
 import NavigationDrawerStructure from './NavigationDrawerStructure'
+import LocationsScreen from '../screens/LocationsScreen';
 
 const MapScreenStackNavigator = createStackNavigator({
     Second: {
@@ -16,7 +17,19 @@ const MapScreenStackNavigator = createStackNavigator({
             },
             headerTintColor: '#fff',
         })
+    },
+    Locations: {
+        screen: LocationsScreen,
+        navigationOptions: ({ navigation }) => ({
+            title: '',
+            headerTransparent: true,
+            headerTintColor: '#fff',
+        })
     }
-})
+},
+    {
+        initialRouteName: "Second"
+    }
+)
 
 export default MapScreenStackNavigator

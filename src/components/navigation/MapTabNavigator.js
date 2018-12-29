@@ -18,7 +18,7 @@ const MapTabNavigator = createBottomTabNavigator(
             activeTintColor: 'rgb(0, 196, 124)',
             inactiveTintColor: 'white',
             labelStyle: {
-                fontSize: 15
+                fontSize: 15,
             },
             
             style: {
