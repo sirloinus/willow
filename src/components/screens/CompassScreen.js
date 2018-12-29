@@ -7,7 +7,7 @@ class CompassScreen extends React.Component {
 
     render() {
         return (
-            <ImageBackground source={require('../../../assets//images/annie-spratt-160768-unsplash.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../../../assets//images/etienne-bosiger-367964-unsplash.jpg')} style={styles.backgroundImage}>
                 {/* <View style={styles.container}> */}
                     <Compass/>
                 {/* </View> */}

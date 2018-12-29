@@ -2,11 +2,15 @@ import React from 'react'
 import { View, Text, StyleSheet, ImageBackground, ScrollView, Image } from 'react-native'
 
 import ImageDataCard from '../ImageDataCard';
+import SquareImageComponent from '../SquareImageComponent';
+import ViewImageCardModal from '../ViewImageCardModal';
 
 class LibraryScreen extends React.Component {
 
     state = {
-        analysedPhotos: []
+        analysedPhotos: [],
+        selectedItem: null,
+        modalVisible: false
     }
 
     componentDidMount() {
@@ -24,52 +28,56 @@ class LibraryScreen extends React.Component {
         }
     }
 
+    handlePress = item => {
+        this.setState({ 
+            selectedItem: item
+        })
+        this.setModalVisibility()
+    }
+
+    setModalVisibility = () => {
+        this.setState({
+            modalVisible: !this.state.modalVisible
+        })
+    }
+
+    removeAnalysedPhotoFromLibrary = item => {
+        const updatedAnalysedPhotosArray = this.state.analysedPhotos.filter(photo => photo !== item)
+        this.setState({ analysedPhotos: updatedAnalysedPhotosArray })
+    }
+
+    deleteAnalysedPhotoFromApi = async item => {
+        try {
+            const response = await fetch(`https://willow-rails-api.herokuapp.com/api/v1/analysed_photos/${item.id}`, {
+                method: 'DELETE'
+            })
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
     render() {
-        const { analysedPhotos } = this.state
+        const { analysedPhotos, selectedItem, modalVisible } = this.state
+        const { handlePress, setModalVisibility, removeAnalysedPhotoFromLibrary, deleteAnalysedPhotoFromApi } = this
 
         return (
-            // <ImageBackground source={require('../../../assets/images/claus-grunstaudl-664432-unsplash.jpg')} style={styles.backgroundImage}>
-            //     <View style={styles.container}>
-            //         <Text style={{ fontSize: 23, color: 'white' }}>
-            //             LIBRARY SCREEN
-            //         </Text>
-            //         <FlatList
-            //             data={analysedPhotos}
-            //             renderItem={({item}) => 
-            //                 <ImageDataCard photoURI={item.photoUri} selectedItems={JSON.parse(item.labels)}/>
-            //             }
-            //             keyExtractor={(item, index) => index.toString()} 
-            //         />
-
-            //         {analysedPhotos.map(item => 
-            //             <ImageDataCard photoURI={item.photoUri} selectedItems={JSON.parse(item.labels)} />
-            //         )}
-            //     </View>
-            // </ImageBackground>
-
-            // <ImageBackground source={require('../../../assets/images/claus-grunstaudl-664432-unsplash.jpg')} style={styles.backgroundImage}>
-            //     <ScrollView contentContainerStyle={styles.content}>
-            //         {analysedPhotos.map(item => 
-            //             <ImageDataCard photoURI={item.photoUri} selectedItems={JSON.parse(item.labels)} />
-            //         )}
-            //     </ScrollView>
-            // </ImageBackground>
-
             <ImageBackground source={require('../../../assets/images/claus-grunstaudl-664432-unsplash.jpg')} style={styles.backgroundImage}>
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <View style={styles.gridContainer}>
                     {analysedPhotos.map(item =>
-                        <View style={styles.boxContainer}>
-                            <Image 
-                                source={{ uri: `${item.photoUri}` }}
-                                defaultSource={require('../../../assets/images/abhay-vyas-4071-unsplash.jpg')}
-                                style={styles.picture}
-                                resizeMode='cover'
-                            />
-                        </View>
+                            <SquareImageComponent item={item} key={item.id} handlePress={handlePress}/>
                     )}
                     </View>
                 </ScrollView>
+                { selectedItem && 
+                    <ViewImageCardModal
+                        modalVisible={modalVisible}
+                        item={selectedItem}
+                        setModalVisibility={setModalVisibility} 
+                        removeAnalysedPhotoFromLibrary={removeAnalysedPhotoFromLibrary}
+                        deleteAnalysedPhotoFromApi={deleteAnalysedPhotoFromApi}
+                    />
+                }
             </ImageBackground>
         )
     }
@@ -108,17 +116,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    boxContainer: {
-        width: 120,
-        height: 120,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'transparent',
-        padding: 5,
-    },
-    picture: {
-        width: '100%',
-        height: '100%',
-        borderRadius: 10
-    }
 })

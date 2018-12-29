@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 
-class ImageDataBubble extends React.Component {
+class ImageDataBubbleForCard extends React.Component {
 
     render() {
         const { item, selectItem, selectedItem = null } = this.props
@@ -19,20 +19,21 @@ class ImageDataBubble extends React.Component {
                         {(item.score * 100).toFixed(2) > 100 ? 100 : (item.score * 100).toFixed(2)} %
                     </Text>
                 </View>
-            </TouchableOpacity>  
+            </TouchableOpacity>
         )
     }
 }
 
 
-export default ImageDataBubble
+export default ImageDataBubbleForCard
 
 const styles = StyleSheet.create({
     item: {
         marginVertical: 14,
         flex: 1,
         flexDirection: 'row',
-        backgroundColor: "#eeeeee",
+        // backgroundColor: 'rgb(0, 196, 124)',
+        backgroundColor: '#5c9d8e',
         borderRadius: 300,
         padding: 5,
         opacity: 0.5,
@@ -47,9 +48,6 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         margin: 15,
         fontSize: 12,
-        color: "rgb(85, 107, 100)",
+        color: 'white',
     },
-    selected: {
-        backgroundColor: 'yellow',
-    }
 })

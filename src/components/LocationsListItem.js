@@ -9,7 +9,7 @@ class LocationsListItem extends React.Component {
             const response = await fetch(`https://willow-rails-api.herokuapp.com/api/v1/markers/${item.id}`, {
                 method: 'DELETE'
             })
-            const parsed = await response.json()
+            // const parsed = await response.json()
         } catch(error) {
             console.log(error)
         }
@@ -42,7 +42,7 @@ class LocationsListItem extends React.Component {
                                 style={styles.image}
                                 source={{ uri: `${item.photoURI}` }}
                                 // TODO: add photo taking ability to location marker -- will need to update back-end
-                                defaultSource={require('../../assets/images/adrian-infernus-1044263-unsplash.jpg')}
+                                defaultSource={require('../../assets/images/jeremy-allouche-523367-unsplash.jpg')}
                             />
                             <View style={styles.textContainer}>
                                 <Text style={styles.title}>{item.title}</Text>
@@ -62,9 +62,9 @@ export default LocationsListItem
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: '94%',
-        marginLeft: '3%',
-        marginRight: '3%',
+        width: '90%',
+        marginLeft: '5%',
+        marginRight: '5%',
         marginBottom: 7,
         flexDirection: 'column',
     },
@@ -72,29 +72,31 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         // justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        // backgroundColor: 'rgba(255, 255, 255, 0.5)',
         borderRadius: 10
     },
     image: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        margin: 5
+        width: 76,
+        height: 76,
+        borderRadius: 38,
+        margin: 5,
+        padding: 5
     },
     textContainer: {
         flex: 1,
         flexDirection: 'column',
-        height: 100,
+        height: 80,
     },
     title: {
         // color: '#5c9d8e',
         color: 'white',
         padding: 10,
-        fontSize: 18
+        fontSize: 14
     },
     description: {
         color: 'white',
         padding: 10,
-        fontSize: 14
+        fontSize: 12
     },
 })

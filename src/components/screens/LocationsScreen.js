@@ -33,7 +33,7 @@ class LocationsScreen extends React.Component {
         const { locations } = this.state
         const { deleteLocationFromList } = this
         return (
-            <ImageBackground source={require('../../../assets/images/holger-link-768311-unsplash.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../../../assets/images/ilya-ilford-128033-unsplash.jpg')} style={styles.backgroundImage}>
                 <View style={styles.container}>
                     <FlatList
                         style={styles.flatList}
