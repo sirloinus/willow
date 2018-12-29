@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, ImageBackground, Alert, Image, FlatList } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Alert, Image, FlatList, ActivityIndicator } from 'react-native'
 import { FileSystem } from 'expo'
 
 import apiKey from '../../lib/api'
@@ -109,44 +109,57 @@ class AnalysisScreen extends React.Component {
         })
     }
 
+    alertInstructions = () => {
+        Alert.alert('Select the most accurate labels and then click on pen icon to create your analysis card.')
+    }
+
     render() {
         // const { navigation } = this.props
         // const pictureObj = navigation.getParam('picture', 'picture not found')
         // console.log(pictureObj)
        
         const { photoURI, photos, filteredLabelAnnotations, filteredWebDetection, selectedItem, selectedItems } = this.state
-        const { selectItem } = this
+        const { selectItem, alertInstructions } = this
 
         return (
             <ImageBackground source={require('../../../assets/images/ehud-neuhaus-162166-unsplash.jpg')} style={styles.backgroundImage}>
-                <View style={styles.container}>
-                    <Image
-                        source={{ uri: `${photoURI}` }}
-                        style={styles.picture}
-                        resizeMode='cover'
-                    />
-                    <Text style={styles.info}>
-                        Select the most accurate label and click on pen icon to view the image card.
-                    </Text>
-                    <FlatList
-                        data={filteredLabelAnnotations}
-                        renderItem={({item}) => 
-                            <ImageDataBubble item={item} selectItem={selectItem} selectedItem={selectedItem} />  
-                        }
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                    <IconButton
-                        is_transparent={true}
-                        icon='create'
-                        style={styles.cameraButton}
-                        onPress={() => {
-                            this.props.navigation.navigate('Details', {
-                                photoURI: photoURI,
-                                selectedItem: selectedItem,
-                                selectedItems: selectedItems
-                            })
-                    }} />
-                </View>
+                { !filteredLabelAnnotations && 
+                    <View>
+                        <ActivityIndicator size='large' color='white' />
+                    </View>
+                }
+                { filteredLabelAnnotations &&
+                    <View style={styles.container}>
+                        {alertInstructions()}
+                        <Image
+                            source={{ uri: `${photoURI}` }}
+                            style={styles.picture}
+                            resizeMode='cover'
+                        />
+                        {/* <Text style={styles.info}>
+                            Select the most accurate label and click on pen icon to view the image card.
+                        </Text> */}
+
+                        <FlatList
+                            data={filteredLabelAnnotations}
+                            renderItem={({item}) => 
+                                <ImageDataBubble item={item} selectItem={selectItem} selectedItem={selectedItem} />  
+                            }
+                            keyExtractor={(item, index) => index.toString()}
+                        />
+                        <IconButton
+                            is_transparent={true}
+                            icon='create'
+                            style={styles.cameraButton}
+                            onPress={() => {
+                                this.props.navigation.navigate('Details', {
+                                    photoURI: photoURI,
+                                    selectedItem: selectedItem,
+                                    selectedItems: selectedItems
+                                })
+                        }} />
+                    </View>
+                }
             </ImageBackground>
         )
     }
