@@ -43,8 +43,6 @@ class AnalysisScreen extends React.Component {
 
         this.setState({ photoBase64 })
 
-        console.log('current photo:', currentPhoto)
-
         this.getImageDataFromVisionApi()
     }
 
@@ -87,7 +85,6 @@ class AnalysisScreen extends React.Component {
                 loading: false
             })
         }
-
         this.filterImageData()
     }
 
@@ -102,15 +99,9 @@ class AnalysisScreen extends React.Component {
             filteredWebDetection,
             loading: false
         })
-        console.log('*********FILTERED DATA IN STATE:' ,this.state.filteredLabelAnnotations, "****", this.state.filteredWebDetection)    
-    }
-
-    analyseFilteredImageData = () => {
-
     }
 
     selectItem = item => {
-        // this.setState({ selectedItem: item })
         const selectedItemsCopy = [...this.state.selectedItems]
         selectedItemsCopy.push(item)
         this.setState({ selectedItem: item, selectedItems: selectedItemsCopy}, () => {
@@ -144,13 +135,6 @@ class AnalysisScreen extends React.Component {
                         }
                         keyExtractor={(item, index) => index.toString()}
                     />
-                    {/* <FlatList
-                        data={filteredWebDetection}
-                        renderItem={({ item }) =>
-                            <ImageDataBubble item={item} selectItem={selectItem} selectedItem={selectedItem} />
-                        }
-                        keyExtractor={(item, index) => index.toString()}
-                    /> */}
                     <IconButton
                         is_transparent={true}
                         icon='create'
@@ -200,6 +184,7 @@ const styles = StyleSheet.create({
         height: 150,
         borderWidth: 1,
         borderRadius: 75,
+        borderColor: 'transparent',
     },
     cameraButton: {
         padding: 10
