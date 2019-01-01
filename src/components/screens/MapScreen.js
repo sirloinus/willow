@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Permissions, Location } from 'expo'
+import { NavigationEvents } from 'react-navigation';
 
 import Map from '../Map'
 import AddLocationMarkerModal from '../AddLocationMarkerModal';
@@ -120,9 +121,13 @@ class MapScreen extends React.Component {
 
     render() {
         const { region, locations, modalVisible, locationTitle, locationDescription } = this.state
-        const { handleChange, handleModal, handlePress, saveLocationDetails } = this
+        const { handleChange, handleModal, handlePress, saveLocationDetails, getUserMarkers } = this
         return (
             <View style={styles.container}>
+                <NavigationEvents
+                    onWillFocus={getUserMarkers}
+                />
+
                 {this.state.region.latitude && 
                     <Map 
                         region={region} 

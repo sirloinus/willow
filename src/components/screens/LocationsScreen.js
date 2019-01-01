@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, ImageBackground, FlatList } from 'react-native'
 import LocationsListItem from '../LocationsListItem';
+import { NavigationEvents } from 'react-navigation';
 
 class LocationsScreen extends React.Component {
 
@@ -31,9 +32,12 @@ class LocationsScreen extends React.Component {
 
     render() {
         const { locations } = this.state
-        const { deleteLocationFromList } = this
+        const { deleteLocationFromList, getUserMarkers } = this
         return (
             <ImageBackground source={require('../../../assets/images/ilya-ilford-128033-unsplash.jpg')} style={styles.backgroundImage}>
+                <NavigationEvents
+                    onWillFocus={getUserMarkers}
+                />
                 <View style={styles.container}>
                     <FlatList
                         style={styles.flatList}
