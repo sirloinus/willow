@@ -7,9 +7,9 @@ const Marker = MapView.Marker
 class Map extends React.Component {
 
     renderMarkers() {
-        return this.props.locations.map(location => (
+        return this.props.locations.map((location, index) => (
             <Marker 
-                key={location.id}
+                key={index}
                 title={location.title}
                 description={location.description} 
                 coordinate={{latitude: location.latitude, longitude: location.longitude}} 
