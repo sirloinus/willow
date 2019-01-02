@@ -29,6 +29,9 @@ const MapTabNavigator = createBottomTabNavigator(
                 left: 0,
                 right: 0,
                 bottom: 0
+            },
+            tabStyle: {
+                margin: 15,
             }
         }
     }

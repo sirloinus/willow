@@ -27,6 +27,14 @@ const ImageDataCard = ({ item, photoURI, selectedItems, setModalVisibility, view
                             keyExtractor={(item, index) => index.toString()}
                         />
                         { viewButton && 
+                        <View style={styles.buttons}> 
+                            <IconButton
+                                is_transparent={true}
+                                icon='close'
+                                style={styles.button}
+                                onPress={setModalVisibility}
+                                color={'black'}
+                            /> 
                             <IconButton
                                 is_transparent={true}
                                 icon='delete'
@@ -37,16 +45,10 @@ const ImageDataCard = ({ item, photoURI, selectedItems, setModalVisibility, view
                                     deleteAnalysedPhotoFromApi(item)
                                     console.log('hallooo')
                                 }}
-                                color={'black'} 
-                            /> }
-                        { viewButton &&                    
-                            <IconButton
-                                is_transparent={true}
-                                icon='close'
-                                style={styles.button}
-                                onPress={setModalVisibility} 
-                                color={'black'}                    
-                            /> }
+                                color={'black'}
+                            /> 
+                        </View>
+                        }
                     </View>
                 </View>
             </TouchableWithoutFeedback>
@@ -59,10 +61,10 @@ export default ImageDataCard
 const styles = StyleSheet.create({
     cardWrapper: {
         height: '100%',
-        marginTop: 200,
-        width: '70%',
-        marginLeft: '15%',
-        marginRight: '15%'
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     card: {
         width: 300,
@@ -84,4 +86,11 @@ const styles = StyleSheet.create({
     button: {
         padding: 10
     },
+    buttons: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 20,
+    }
 })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Modal } from 'react-native'
+import { StyleSheet, Modal, View } from 'react-native'
 import ImageDataCard from './ImageDataCard';
 
 class ViewImageCardModal extends React.Component {
@@ -12,8 +12,7 @@ class ViewImageCardModal extends React.Component {
                 position='center'
                 backdrop={true}
                 animationType='fade'
-                onRequestClose={setModalVisibility}
-            >
+                onRequestClose={setModalVisibility} >
                 <ImageDataCard
                     photoURI={item.photoUri} 
                     selectedItems={JSON.parse(item.labels)}
@@ -29,7 +28,3 @@ class ViewImageCardModal extends React.Component {
 }
 
 export default ViewImageCardModal
-
-const styles = StyleSheet.create({
-
-})
