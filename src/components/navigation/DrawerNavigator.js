@@ -1,8 +1,6 @@
 import React from 'react'
 import { createDrawerNavigator } from 'react-navigation'
 import HomeScreenStackNavigator from './HomeScreenStackNavigator';
-import MapScreenStackNavigator from './MapScreenStackNavigator';
-import IdentifierScreenStackNavigator from './IdentifierScreenStackNavigator';
 import CompassScreenStackNavigator from './CompassScreenStackNavigator';
 import MapTabNavigator from './MapTabNavigator';
 import IdentifierTabNavigator from './IdentifierTabNavigator';

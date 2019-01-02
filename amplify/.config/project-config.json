@@ -1,0 +1,20 @@
+{
+    "projectName": "willow",
+    "projectPath": "/Users/Amazza/Development/Flatiron/Mod 5/willow",
+    "defaultEditor": "code",
+    "frontendHandler": {
+        "javascript": "/Users/Amazza/.nvm/versions/node/v10.13.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-frontend-javascript"
+    },
+    "javascript": {
+        "framework": "react-native",
+        "config": {
+            "SourceDir": "/",
+            "DistributionDir": "/",
+            "BuildCommand": "expo start",
+            "StartCommand": "expo start"
+        }
+    },
+    "providers": {
+        "awscloudformation": "/Users/Amazza/.nvm/versions/node/v10.13.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-provider-awscloudformation"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "willow-20190102164754-authRole",
+            "UnauthRoleArn": "arn:aws:iam::345571325832:role/willow-20190102164754-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::345571325832:role/willow-20190102164754-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "willow-20190102164754-deployment",
+            "UnauthRoleName": "willow-20190102164754-unauthRole",
+            "StackName": "willow-20190102164754",
+            "StackId": "arn:aws:cloudformation:eu-west-1:345571325832:stack/willow-20190102164754/26a337c0-0eae-11e9-a371-062647984902"
+        }
+    }
+}
