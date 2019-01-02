@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, TextInput, Modal, Button } from 'react-native'
+import { View, StyleSheet, TextInput, Modal, Button, Dimensions } from 'react-native'
 import IconButton from './common/IconButton';
 
 class AddLocationMarkerModal extends React.Component {
@@ -34,16 +34,18 @@ class AddLocationMarkerModal extends React.Component {
                         value={locationDescription}
                         onChange={(event) => handleChange(event, 'locationDescription')}
                     />
-                    <IconButton
-                        is_transparent={true}
-                        icon='save'
-                        style={styles.saveButton}
-                        onPress={saveLocationDetails} />
-                    <IconButton
-                        is_transparent={true}
-                        icon='close'
-                        style={styles.saveButton}
-                        onPress={handleModal} />
+                    <View style={styles.buttons}> 
+                        <IconButton
+                            is_transparent={true}
+                            icon='close'
+                            style={styles.saveButton}
+                            onPress={handleModal} />
+                        <IconButton
+                            is_transparent={true}
+                            icon='save'
+                            style={styles.saveButton}
+                            onPress={saveLocationDetails} />
+                    </View>
                     {/* <Button
                         style={{fontSize: 18, color: 'white'}}
                         containerStyle={styles.buttonContainer}
@@ -61,12 +63,12 @@ export default AddLocationMarkerModal
 
 const styles = StyleSheet.create({
     modalWrapper: {
-        height: '50%',
-        marginTop: '25%',
-        marginBottom: '25%',
-        width: '80%',
-        marginLeft: '10%',
-        marginRight: '10%'
+        height: '100%',
+        width: '100%',
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     modal: {
         justifyContent: 'center',
@@ -74,14 +76,7 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         width: 250,
         height: 250,
-        // margin: 100,
         backgroundColor: 'white'
-        // position: 'absolute',
-        // bottom: 0,
-        // padding: 30,
-        // width: 250,
-        // height: 150,
-        // borderRadius: 15
     },
     inputWrapper: {
         backgroundColor: 'white'
@@ -101,9 +96,15 @@ const styles = StyleSheet.create({
         marginRight: 70,
         height: 40,
         borderRadius: 6,
-        backgroundColor: 'green'
     },
     saveButton: {
         padding: 10
     },
+    buttons: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 15,
+    }
 })
