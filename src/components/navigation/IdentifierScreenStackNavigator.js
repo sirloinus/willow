@@ -21,14 +21,14 @@ const IdentifierScreenStackNavigator = createStackNavigator(
                 headerTintColor: '#fff',
             })
         }, 
-        Library: {
-            screen: LibraryScreen,
-            navigationOptions: ({ navigation }) => ({
-                title: '',
-                headerTransparent: true,
-                headerTintColor: '#fff',
-            })
-        },
+        // Library: {
+        //     screen: LibraryScreen,
+        //     navigationOptions: ({ navigation }) => ({
+        //         title: '',
+        //         headerTransparent: true,
+        //         headerTintColor: '#fff',
+        //     })
+        // },
         Analysis: {
             screen: AnalysisScreen,
             navigationOptions: ({ navigation }) => ({

@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, ImageBackground, ScrollView, Image } from 'react-native'
+import { NavigationEvents } from 'react-navigation'
 
 import ImageDataCard from '../ImageDataCard';
 import SquareImageComponent from '../SquareImageComponent';
@@ -14,6 +15,10 @@ class LibraryScreen extends React.Component {
     }
 
     componentDidMount() {
+        this.getAnalysedPhotosFromServer()
+    }
+
+    componentDidUpdate() {
         this.getAnalysedPhotosFromServer()
     }
 
@@ -58,14 +63,17 @@ class LibraryScreen extends React.Component {
 
     render() {
         const { analysedPhotos, selectedItem, modalVisible } = this.state
-        const { handlePress, setModalVisibility, removeAnalysedPhotoFromLibrary, deleteAnalysedPhotoFromApi } = this
+        const { handlePress, setModalVisibility, removeAnalysedPhotoFromLibrary, deleteAnalysedPhotoFromApi, getAnalysedPhotosFromServer } = this
 
         return (
             <ImageBackground source={require('../../../assets/images/claus-grunstaudl-664432-unsplash.jpg')} style={styles.backgroundImage}>
+                {/* <NavigationEvents
+                    onDidFocus={getAnalysedPhotosFromServer}
+                /> */}
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <View style={styles.gridContainer}>
                     {analysedPhotos.map(item =>
-                            <SquareImageComponent item={item} key={item.id} handlePress={handlePress}/>
+                        <SquareImageComponent item={item} key={item.id} handlePress={handlePress}/>
                     )}
                     </View>
                 </ScrollView>

@@ -9,18 +9,17 @@ const IdentifierTabNavigator = createBottomTabNavigator(
         Camera: { screen: IdentifierScreenStackNavigator },
         Library: { screen: LibraryScreen }
     }, {
-        navigationOptions: ({ navigation }) => ({
+        navigationOptions: ({ navigation }) => {
             tabBarIcon: ({ focused, tintColor }) => {
                 const { routeName } = navigation.state
             }
-        }),
+        },
         tabBarOptions: {
             activeTintColor: 'rgb(0, 196, 124)',
             inactiveTintColor: 'white',
             labelStyle: {
                 fontSize: 15
             },
-
             style: {
                 backgroundColor: 'rgba(0, 0, 0, 0.9)',
                 // borderTopWidth: 3,
