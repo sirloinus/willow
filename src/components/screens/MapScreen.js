@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, AsyncStorage } from 'react-native'
 import { Permissions, Location } from 'expo'
 import { NavigationEvents } from 'react-navigation';
 
@@ -32,7 +32,9 @@ class MapScreen extends React.Component {
         locationDescription: null,
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        const username = await AsyncStorage.getItem('Username')
+        console.log(username)
         this.getLocationAsync()
         this.getUserMarkers()
     }

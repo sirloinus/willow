@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, AsyncStorage } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { withAuthenticator } from 'aws-amplify-react-native'
 import { Auth } from 'aws-amplify'
@@ -18,18 +18,17 @@ class App extends React.Component {
   async componentDidMount() {
     try {
       const user = await Auth.currentAuthenticatedUser()
+      console.log(user)
       const username = user.username
-      this.setState({ username })
+      await AsyncStorage.setItem('Username', username)
     } catch(error) {
       console.log(error)
     }
   }
 
   render() {
-    const { username } = this.state
-    console.log(username)
     return (
-      <AppContainer username={username}/>
+      <AppContainer/>
     )
   }
 }

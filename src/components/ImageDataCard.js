@@ -43,7 +43,6 @@ const ImageDataCard = ({ item, photoURI, selectedItems, setModalVisibility, view
                                     setModalVisibility()
                                     removeAnalysedPhotoFromLibrary(item)
                                     deleteAnalysedPhotoFromApi(item)
-                                    console.log('hallooo')
                                 }}
                                 color={'black'}
                             /> 
