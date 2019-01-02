@@ -7,9 +7,9 @@ class HomeScreen extends React.Component {
         return (
             <ImageBackground source={require('../../../assets/images/caleb-woods-601935-unsplash.jpg')} style={styles.backgroundImage}>
                 <View style={styles.container}>
-                    {/* <Text style={{fontSize: 23, color: 'white'}}>
-                        HOME SCREEN
-                    </Text> */}
+                    <Text style={{fontSize: 23, color: 'white'}}>
+                        Welcome back, Amalie.
+                    </Text>
                 </View>
             </ImageBackground>
         )
