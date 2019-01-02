@@ -18,14 +18,14 @@ const MapScreenStackNavigator = createStackNavigator({
             headerTintColor: '#fff',
         })
     },
-    Locations: {
-        screen: LocationsScreen,
-        navigationOptions: ({ navigation }) => ({
-            title: '',
-            headerTransparent: true,
-            headerTintColor: '#fff',
-        })
-    }
+    // Locations: {
+    //     screen: LocationsScreen,
+    //     navigationOptions: ({ navigation }) => ({
+    //         title: '',
+    //         headerTransparent: true,
+    //         headerTintColor: '#fff',
+    //     })
+    // }
 },
     {
         initialRouteName: "Second"

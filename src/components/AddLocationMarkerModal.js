@@ -12,48 +12,48 @@ class AddLocationMarkerModal extends React.Component {
                 transparent={true}
                 position='center'
                 backdrop={true}
-                animationType='fade' >
+                animationType='slide' >
                 <View style={styles.modalWrapper}>
-                <View style={styles.modal}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Location Title'
-                        autoCapitalize="words"
-                        autoCorrect={true}
-                        keyboardType="default"
-                        returnKeyType="next"
-                        value={locationTitle}
-                        onChange={(event) => handleChange(event, 'locationTitle')}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Description'
-                        autoCorrect={true}
-                        keyboardType="default"
-                        returnKeyType="done"
-                        value={locationDescription}
-                        onChange={(event) => handleChange(event, 'locationDescription')}
-                    />
-                    <View style={styles.buttons}> 
-                        <IconButton
-                            is_transparent={true}
-                            icon='close'
-                            style={styles.saveButton}
-                            onPress={handleModal} />
-                        <IconButton
-                            is_transparent={true}
-                            icon='save'
-                            style={styles.saveButton}
-                            onPress={saveLocationDetails} />
+                    <View style={styles.modal}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder='Location Title'
+                            autoCapitalize="words"
+                            autoCorrect={true}
+                            keyboardType="default"
+                            returnKeyType="next"
+                            value={locationTitle}
+                            onChange={(event) => handleChange(event, 'locationTitle')}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder='Description'
+                            autoCorrect={true}
+                            keyboardType="default"
+                            returnKeyType="done"
+                            value={locationDescription}
+                            onChange={(event) => handleChange(event, 'locationDescription')}
+                        />
+                        <View style={styles.buttons}> 
+                            <IconButton
+                                is_transparent={true}
+                                icon='close'
+                                style={styles.saveButton}
+                                onPress={handleModal} />
+                            <IconButton
+                                is_transparent={true}
+                                icon='save'
+                                style={styles.saveButton}
+                                onPress={saveLocationDetails} />
+                        </View>
+                        {/* <Button
+                            style={{fontSize: 18, color: 'white'}}
+                            containerStyle={styles.buttonContainer}
+                            title={'Save'}
+                        >
+                            Save
+                        </Button> */}
                     </View>
-                    {/* <Button
-                        style={{fontSize: 18, color: 'white'}}
-                        containerStyle={styles.buttonContainer}
-                        title={'Save'}
-                    >
-                        Save
-                    </Button> */}
-                </View>
                 </View>
             </Modal>
     )}
