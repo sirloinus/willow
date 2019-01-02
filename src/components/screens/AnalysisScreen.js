@@ -21,7 +21,8 @@ class AnalysisScreen extends React.Component {
         filteredLabelAnnotations: null,
         filteredWebDetection: null,
         selectedItem: null,
-        selectedItems: []
+        selectedItems: [],
+        alertMessageFlag: false
     }
 
     async componentDidMount() {
@@ -102,15 +103,21 @@ class AnalysisScreen extends React.Component {
     }
 
     selectItem = item => {
-        const selectedItemsCopy = [...this.state.selectedItems]
-        selectedItemsCopy.push(item)
-        this.setState({ selectedItem: item, selectedItems: selectedItemsCopy}, () => {
-            console.log('selected:', this.state.selectedItem)
-        })
+        if (this.state.selectedItems.includes(item)){
+            const selectedItemsCopy = this.state.selectedItems.filter(el => el !== item)
+            this.setState({ selectedItem: null, selectedItems: selectedItemsCopy })
+        } else {
+            const selectedItemsCopy = [...this.state.selectedItems]
+            selectedItemsCopy.push(item)
+            this.setState({ selectedItem: item, selectedItems: selectedItemsCopy})
+        }
     }
 
     alertInstructions = () => {
-        Alert.alert('Select the most accurate labels and then click on pen icon to create your analysis card.')
+        if(!this.state.alertMessageFlag) {
+            Alert.alert('Select the most accurate labels and then click on pen icon to create your analysis card.')
+            this.setState({alertMessageFlag: true})
+        }
     }
 
     render() {
@@ -118,10 +125,11 @@ class AnalysisScreen extends React.Component {
         // const pictureObj = navigation.getParam('picture', 'picture not found')
         // console.log(pictureObj)
        
-        const { photoURI, photos, filteredLabelAnnotations, filteredWebDetection, selectedItem, selectedItems } = this.state
+        const { photoURI, photos, filteredLabelAnnotations, filteredWebDetection, selectedItem, selectedItems, alertMessageFlag } = this.state
         const { selectItem, alertInstructions } = this
-
+    
         return (
+            
             <ImageBackground source={require('../../../assets/images/ehud-neuhaus-162166-unsplash.jpg')} style={styles.backgroundImage}>
                 { !filteredLabelAnnotations && 
                     <View>
@@ -142,8 +150,9 @@ class AnalysisScreen extends React.Component {
 
                         <FlatList
                             data={filteredLabelAnnotations}
+                            extraData={this.state}
                             renderItem={({item}) => 
-                                <ImageDataBubble item={item} selectItem={selectItem} selectedItem={selectedItem} />  
+                                <ImageDataBubble item={item} selectItem={selectItem} selectedItem={selectedItem} selectedItems={selectedItems}/>  
                             }
                             keyExtractor={(item, index) => index.toString()}
                         />

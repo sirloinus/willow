@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Modal, View } from 'react-native'
+import { StyleSheet, Modal } from 'react-native'
 import ImageDataCard from './ImageDataCard';
 
 class ViewImageCardModal extends React.Component {
