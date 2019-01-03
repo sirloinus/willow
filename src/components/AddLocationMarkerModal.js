@@ -12,7 +12,7 @@ class AddLocationMarkerModal extends React.Component {
                 transparent={true}
                 position='center'
                 backdrop={true}
-                animationType='slide' >
+                animationType='fade' >
                 <View style={styles.modalWrapper}>
                     <View style={styles.modal}>
                         <TextInput
