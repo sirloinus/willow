@@ -34,7 +34,7 @@ class LocationsScreen extends React.Component {
         const { locations } = this.state
         const { deleteLocationFromList, getUserMarkers } = this
         return (
-            <ImageBackground source={require('../../../assets/images/ilya-ilford-128033-unsplash.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../../../assets/images/blurredhills.jpg')} style={styles.backgroundImage}>
                 <NavigationEvents
                     onWillFocus={getUserMarkers}
                 />

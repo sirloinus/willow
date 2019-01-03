@@ -66,7 +66,7 @@ class LibraryScreen extends React.Component {
         const { handlePress, setModalVisibility, removeAnalysedPhotoFromLibrary, deleteAnalysedPhotoFromApi, getAnalysedPhotosFromServer } = this
 
         return (
-            <ImageBackground source={require('../../../assets/images/claus-grunstaudl-664432-unsplash.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../../../assets/images/blurredbark.jpg')} style={styles.backgroundImage}>
                 {/* <NavigationEvents
                     onDidFocus={getAnalysedPhotosFromServer}
                 /> */}
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     },
     content: {
         // paddingVertical: 80
-        marginTop: 80,
+        marginTop: 40,
         padding: 10,
         flexGrow: 1
     },

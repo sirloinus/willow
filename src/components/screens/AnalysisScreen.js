@@ -130,7 +130,7 @@ class AnalysisScreen extends React.Component {
     
         return (
             
-            <ImageBackground source={require('../../../assets/images/ehud-neuhaus-162166-unsplash.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../../../assets/images/blurredpuddle.jpg')} style={styles.backgroundImage}>
                 { !filteredLabelAnnotations && 
                     <View>
                         <ActivityIndicator size='large' color='white' />

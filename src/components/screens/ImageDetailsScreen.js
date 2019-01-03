@@ -70,7 +70,7 @@ class ImageDetailsScreen extends React.Component {
         const selectedItems = navigation.getParam('selectedItems', 'no selected items')
 
         return (
-            <ImageBackground source={require('../../../assets/images/ehud-neuhaus-162166-unsplash.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../../../assets/images/blurredpuddle3.jpg')} style={styles.backgroundImage}>
                 <View style={styles.container}>
                     <ImageDataCard photoURI={photoURI} selectedItem={selectedItem} selectedItems={selectedItems}/>
                 </View>    

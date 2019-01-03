@@ -6,7 +6,7 @@ class HomeScreen extends React.Component {
 
     render() {
         return (
-            <ImageBackground source={require('../../../assets/images/caleb-woods-601935-unsplash.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../../../assets/images/blurredwoods.jpg')} style={styles.backgroundImage}>
                 {/* <Image
                     source={require('../../../assets/icons/willow.png')}
                     style={{ width: 90, height: 90, marginTop: 10 }}

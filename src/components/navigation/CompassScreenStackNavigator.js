@@ -8,7 +8,7 @@ const CompassScreenStackNavigator = createStackNavigator({
     Fourth: {
         screen: CompassScreen,
         navigationOptions: ({ navigation }) => ({
-            title: 'Compass',
+            title: '',
             headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
             headerTransparent: true,
             headerStyle: {
