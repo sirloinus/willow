@@ -129,8 +129,9 @@ class MapScreen extends React.Component {
                 />
 
                 {this.state.region.latitude && 
-                    <Map 
-                        region={region} 
+                    <Map
+                        // region={region} 
+                        initialRegion={region} 
                         locations={locations} 
                         handlePress={handlePress} />
                 }
@@ -152,5 +153,6 @@ const styles = StyleSheet.create({
     container: {
         position: 'relative',
         display: 'flex',
+        backgroundColor: 'black'
     },
 })

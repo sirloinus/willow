@@ -18,7 +18,8 @@ const IdentifierTabNavigator = createBottomTabNavigator(
             activeTintColor: 'rgb(0, 196, 124)',
             inactiveTintColor: 'white',
             labelStyle: {
-                fontSize: 15
+                fontSize: 15,
+                fontFamily: 'comfortaa-regular'
             },
             style: {
                 backgroundColor: 'rgba(0, 0, 0, 0.9)',

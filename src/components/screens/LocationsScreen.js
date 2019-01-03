@@ -57,7 +57,7 @@ export default LocationsScreen
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 80,
+        marginTop: 40,
         flex: 1,
         width: '100%',
         backgroundColor: 'transparent',
@@ -73,5 +73,6 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'black'
     }
 })

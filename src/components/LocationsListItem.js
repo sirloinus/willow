@@ -92,11 +92,13 @@ const styles = StyleSheet.create({
         // color: '#5c9d8e',
         color: 'white',
         padding: 10,
-        fontSize: 14
+        fontSize: 14,
+        fontFamily: 'comfortaa-bold'
     },
     description: {
         color: 'white',
         padding: 10,
-        fontSize: 12
+        fontSize: 12,
+        fontFamily: 'comfortaa-light'
     },
 })

@@ -13,7 +13,7 @@ class Map extends React.Component {
                 title={location.title}
                 description={location.description} 
                 coordinate={{latitude: location.latitude, longitude: location.longitude}} 
-                image={require('../../assets/icons/pin.png')}
+                image={require('../../assets/icons/coralpin64.png')}
                 onPress={(event) => { event.stopPropagation()}}
             />
         ))

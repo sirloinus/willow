@@ -43,13 +43,15 @@ const styles = StyleSheet.create({
         maxWidth: 250,
         padding: 15,
         borderRadius: 20,
+        fontFamily: 'comfortaa-regular'
     },
     score: {
         alignSelf: 'flex-end',
         margin: 15,
         fontSize: 12,
         color: "rgb(85, 107, 100)",
-        borderRadius: 20
+        borderRadius: 20,
+        fontFamily: 'comfortaa-regular'
     },
     selected: {
         backgroundColor: '#5c9d8e',

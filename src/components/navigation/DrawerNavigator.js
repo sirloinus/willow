@@ -29,6 +29,7 @@ const DrawerNavigator = createDrawerNavigator (
             },
             labelStyle: {
                 fontSize: 14,
+                fontFamily: 'comfortaa-bold'
             }
         }
     }

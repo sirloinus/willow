@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'black'
     },
     content: {
         // paddingVertical: 80

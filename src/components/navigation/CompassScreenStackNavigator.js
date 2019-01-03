@@ -13,6 +13,7 @@ const CompassScreenStackNavigator = createStackNavigator({
             headerTransparent: true,
             headerStyle: {
                 // backgroundColor: 'white',
+                
             },
             headerTintColor: '#fff',
         })

@@ -8,13 +8,14 @@ const HomeScreenStackNavigator = createStackNavigator({
     First: {
         screen: HomeScreen,
         navigationOptions: ({ navigation }) => ({
-            title: 'Home',
+            title: '',
             headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
             headerTransparent: true,
             headerStyle: {
                 // backgroundColor: 'white',
             },
             headerTintColor: '#fff',
+            headerTitle: 
         })
     }
 })

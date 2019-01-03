@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
         marginRight: 30,
         marginTop: 20,
         marginBottom: 10,
+        fontFamily: 'comfortaa-light'
     },
     buttonContainer: {
         padding: 8,
